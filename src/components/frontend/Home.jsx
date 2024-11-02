@@ -2,12 +2,26 @@ import React from "react";
 import AboutImg from "../../assets/images/about-us.jpg";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
-import Service1 from "../../assets/images/construction1.jpg"
-import Service2 from "../../assets/images/construction2.jpg"
-import Service3 from "../../assets/images/construction3.jpg"
-import Service4 from "../../assets/images/construction4.jpg"
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 
-import projectImg from "../../assets/images/construction5.jpg"
+import AvatarImg from "../../assets/images/author-2.jpg";
+import Service1 from "../../assets/images/construction1.jpg";
+import Service2 from "../../assets/images/construction2.jpg";
+import Service3 from "../../assets/images/construction3.jpg";
+import Service4 from "../../assets/images/construction4.jpg";
+import project1 from "../../assets/images/construction5.jpg";
+import project2 from "../../assets/images/construction6.jpg";
+import project3 from "../../assets/images/construction7.jpg";
+import project4 from "../../assets/images/construction8.jpg";
+
+import blogimg from "../../assets/images/construction8.jpg";
+
+import Icon1 from "../../assets/images/icon-1.svg";
+import Icon2 from "../../assets/images/icon-2.svg";
+import Icon3 from "../../assets/images/icon-3.svg";
 
 const Home = () => {
   return (
@@ -17,7 +31,7 @@ const Home = () => {
       <main>
         {/* Hero Section */}
         <section className="section-1">
-          <div className="hero d-flex align-items-center">
+          <div className="hero d-flex align-items-center py-5">
             <div className="container-fluid">
               <div className="text-center">
                 <span>Welcome To Amazing Construction</span>
@@ -46,7 +60,7 @@ const Home = () => {
           <div className="container py-5">
             <div className="row">
               <div className="col-md-6">
-                <img src={AboutImg} className="w-100" />
+                <img src={AboutImg} className="mb-5 w-100" />
               </div>
 
               <div className="col-md-6">
@@ -74,191 +88,767 @@ const Home = () => {
           </div>
         </section>
 
-
-        {/* About Us Section */}
+        {/* Services Section */}
         <section className="section-3 bg-light py-5">
-        <div className="container-fluid py-5">
-          <div className="section-header text-center">
-            <span>Our Services</span>
-            <h2>Our Construction Services</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, animi!</p>
+          <div className="container py-5">
+            <div className="section-header text-center">
+              <span>Our Services</span>
+              <h2>Our Construction Services</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+                consequatur atque quos est quibusdam officiis!
+              </p>
+            </div>
+
+            <div className="row mt-5">
+              <div className="col-md-4 col-lg-3">
+                <div className="item mb-3">
+                  <div className="service-image">
+                    <img src={Service1} className="w-100" alt="" />
+                  </div>
+                  <div className="service-body">
+                    <div className="service-title">
+                      <h3>Speciality Construction</h3>
+                    </div>
+
+                    <div className="service-content">
+                      <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit
+                      </p>
+                    </div>
+                    <a href="#" className="btn btn-primary">
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-4 col-lg-3">
+                <div className="item mb-3">
+                  <div className="service-image">
+                    <img src={Service2} className="w-100" alt="" />
+                  </div>
+                  <div className="service-body">
+                    <div className="service-title">
+                      <h3>Speciality Construction</h3>
+                    </div>
+
+                    <div className="service-content">
+                      <p>
+                        orem ipsum dolor sit amet consectetur adipisicing elit
+                      </p>
+                    </div>
+                    <a href="#" className="btn btn-primary">
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-4 col-lg-3">
+                <div className="item mb-3">
+                  <div className="service-image">
+                    <img src={Service3} className="w-100" alt="" />
+                  </div>
+                  <div className="service-body">
+                    <div className="service-title">
+                      <h3>Speciality Construction</h3>
+                    </div>
+
+                    <div className="service-content">
+                      <p>
+                        orem ipsum dolor sit amet consectetur adipisicing elit
+                      </p>
+                    </div>
+                    <a href="#" className="btn btn-primary">
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-4 col-lg-3">
+                <div className="item mb-3">
+                  <div className="service-image">
+                    <img src={Service4} className="w-100" alt="" />
+                  </div>
+                  <div className="service-body">
+                    <div className="service-title">
+                      <h3>Speciality Construction</h3>
+                    </div>
+
+                    <div className="service-content">
+                      <p>
+                        orem ipsum dolor sit amet consectetur adipisicing elit
+                      </p>
+                    </div>
+                    <a href="#" className="btn btn-primary">
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div className="row mt-5">
-
-              <div className="col-md-3 col-lg-3">
-                  <div className="item">
-                    <div className="service-image">
-                  <img src={Service1} className="w-100" alt="" />
-                    </div>
-                    <div className="service-body">
-                      <div className="service-title">
-                        <h3>Speciality Construction</h3>
-                      </div>
-
-                      <div className="service-content">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus, laudantium. Nam veritatis quam eaque est!</p>
-                      </div>
-                      <a href="#" className="btn btn-primary">Read More</a>
-                    </div>
-                  </div>
-              </div>
-
-              <div className="col-md-3 col-lg-3">
-                  <div className="item">
-                    <div className="service-image">
-                  <img src={Service2} className="w-100" alt="" />
-                    </div>
-                    <div className="service-body">
-                      <div className="service-title">
-                        <h3>Speciality Construction</h3>
-                      </div>
-
-                      <div className="service-content">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus, laudantium. Nam veritatis quam eaque est!</p>
-                      </div>
-                      <a href="#" className="btn btn-primary">Read More</a>
-                    </div>
-                  </div>
-              </div>
-
-              <div className="col-md-3 col-lg-3">
-                  <div className="item">
-                    <div className="service-image">
-                  <img src={Service3} className="w-100" alt="" />
-                    </div>
-                    <div className="service-body">
-                      <div className="service-title">
-                        <h3>Speciality Construction</h3>
-                      </div>
-
-                      <div className="service-content">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus, laudantium. Nam veritatis quam eaque est!</p>
-                      </div>
-                      <a href="#" className="btn btn-primary">Read More</a>
-                    </div>
-                  </div>
-              </div>
-
-              <div className="col-md-3 col-lg-3">
-                  <div className="item">
-                    <div className="service-image">
-                  <img src={Service4} className="w-100" alt="" />
-                    </div>
-                    <div className="service-body">
-                      <div className="service-title">
-                        <h3>Speciality Construction</h3>
-                      </div>
-
-                      <div className="service-content">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus, laudantium. Nam veritatis quam eaque est!</p>
-                      </div>
-                      <a href="#" className="btn btn-primary">Read More</a>
-                    </div>
-                  </div>
-              </div>
-          </div>
-
-        </div>
-
         </section>
 
+        {/* Why Choose Us  Section */}
+        <section className="section-4 py-5">
+          <div className="container py-5">
+            <div className="section-header text-center">
+              <span>Why Choose Us</span>
+              <h2>Discover our wide variety of projects.</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+                consequatur atque quos est quibusdam officiis!
+              </p>
+            </div>
 
-      <section className="section-4">
-   <div className="container">
-   Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam aut distinctio sunt. Recusandae aliquam aut ipsa tenetur. A totam ipsum temporibus commodi ad nobis! Reiciendis, vitae eveniet. Voluptas, fuga. Ducimus sunt voluptate ad vero error optio est quos! Nobis earum, vel et sint optio asperiores illo voluptate distinctio nulla commodi soluta dolore unde consectetur illum harum architecto ipsum incidunt quas corporis inventore consequatur sit adipisci sunt. Pariatur repudiandae ipsam sit aspernatur quo officiis dicta architecto molestiae placeat repellat alias exercitationem cupiditate voluptates commodi id consequatur veniam fugit asperiores, quia error, voluptatem amet est mollitia numquam. Facilis ipsam laboriosam dolorum iste cupiditate quia eligendi molestias dignissimos expedita alias architecto ducimus sit officia ea atque deleniti provident tempore soluta, quisquam ex itaque modi enim minus autem? Distinctio adipisci provident non explicabo nisi eveniet aliquid, tempora quam nemo velit quia amet. Provident mollitia quas officia illum blanditiis voluptates est. Explicabo distinctio vero temporibus nihil mollitia repudiandae ducimus nesciunt perspiciatis eius nulla nostrum nam sed earum iste aperiam, omnis corporis similique aspernatur expedita architecto? Ab, voluptatum ipsam reprehenderit architecto dolorum totam officiis accusamus ex quam. Dolorem fugiat est hic nemo possimus minima delectus odio, laudantium quisquam quas impedit dignissimos. Blanditiis provident sapiente neque assumenda!
-   </div>
-      </section>
+            <div className="row mt-5">
+              <div className="col-md-4">
+                <div className="card shadow border-0 p-4 mb-3">
+                  <div className="card-icon ">
+                    <img src={Icon1} alt="" />
+                  </div>
 
-           {/* Our Project Section */}
-      <section className="section-5 bg-light py-5">
-        <div className="container-fluid py-5">
-          <div className="section-header text-center">
-            <span>Our Projects</span>
-            <h2>Our Construction Projects</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, animi!</p>
+                  <div className="card-title mt-3">
+                    <h3>Cutting Edge Solutions</h3>
+                  </div>
+
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Magni, amet alias fugiat perferendis nisi nulla ratione
+                    provident pariatur saepe et.
+                  </p>
+                </div>
+              </div>
+
+              <div className="col-md-4">
+                <div className="card shadow border-0 p-4 mb-3">
+                  <div className="card-icon ">
+                    <img src={Icon2} alt="" />
+                  </div>
+
+                  <div className="card-title mt-3">
+                    <h3>Cutting Edge Solutions</h3>
+                  </div>
+
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Magni, amet alias fugiat perferendis nisi nulla ratione
+                    provident pariatur saepe et.
+                  </p>
+                </div>
+              </div>
+
+              <div className="col-md-4">
+                <div className="card shadow border-0 p-4">
+                  <div className="card-icon ">
+                    <img src={Icon3} alt="" />
+                  </div>
+
+                  <div className="card-title mt-3">
+                    <h3>Cutting Edge Solutions</h3>
+                  </div>
+
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Magni, amet alias fugiat perferendis nisi nulla ratione
+                    provident pariatur saepe et.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div className="row mt-5">
-
-              <div className="col-md-3 col-lg-3">
-                  <div className="item">
-                    <div className="service-image">
-                  <img src={projectImg} className="w-100" alt="" />
-                    </div>
-                    <div className="service-body">
-                      <div className="service-title">
-                        <h3>Project One</h3>
-                      </div>
-
-                      <div className="service-content">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus, laudantium. Nam veritatis quam eaque est!</p>
-                      </div>
-                      <a href="#" className="btn btn-primary">Read More</a>
-                    </div>
-                  </div>
-              </div>
-
-              <div className="col-md-3 col-lg-3">
-                  <div className="item">
-                    <div className="service-image">
-                  <img src={projectImg} className="w-100" alt="" />
-                    </div>
-                    <div className="service-body">
-                      <div className="service-title">
-                        <h3>Project Two</h3>
-                      </div>
-
-                      <div className="service-content">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus, laudantium. Nam veritatis quam eaque est!</p>
-                      </div>
-                      <a href="#" className="btn btn-primary">Read More</a>
-                    </div>
-                  </div>
-              </div>
-
-              <div className="col-md-3 col-lg-3">
-                  <div className="item">
-                    <div className="service-image">
-                  <img src={projectImg} className="w-100" alt="" />
-                    </div>
-                    <div className="service-body">
-                      <div className="service-title">
-                        <h3>Project Three</h3>
-                      </div>
-
-                      <div className="service-content">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus, laudantium. Nam veritatis quam eaque est!</p>
-                      </div>
-                      <a href="#" className="btn btn-primary">Read More</a>
-                    </div>
-                  </div>
-              </div>
-
-              <div className="col-md-3 col-lg-3">
-                  <div className="item">
-                    <div className="service-image">
-                  <img src={projectImg} className="w-100" alt="" />
-                    </div>
-                    <div className="service-body">
-                      <div className="service-title">
-                        <h3>Project Four</h3>
-                      </div>
-
-                      <div className="service-content">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus, laudantium. Nam veritatis quam eaque est!</p>
-                      </div>
-                      <a href="#" className="btn btn-primary">Read More</a>
-                    </div>
-                  </div>
-              </div>
-          </div>
-
-        </div>
-
         </section>
 
+        {/* Our Project Section */}
+        <section className="section-5 bg-light py-5">
+          <div className="container py-5">
+            <div className="section-header text-center">
+              <span>Our Projects</span>
+              <h2>Our Construction Projects</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+                consequatur atque quos est quibusdam officiis!
+              </p>
+            </div>
 
+            <div className="row mt-5">
+              <div className="col-md-4 col-lg-3">
+                <div className="item mb-3">
+                  <div className="service-image">
+                    <img src={project1} className="w-100" alt="" />
+                  </div>
+                  <div className="service-body">
+                    <div className="service-title">
+                      <h3>Project One</h3>
+                    </div>
+
+                    <div className="service-content">
+                      <p>
+                        orem ipsum, dolor sit amet consectetur adipisicing elit
+                      </p>
+                    </div>
+                    <a href="#" className="btn btn-primary">
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-4 col-lg-3">
+                <div className="item mb-3">
+                  <div className="service-image">
+                    <img src={project2} className="w-100" alt="" />
+                  </div>
+                  <div className="service-body">
+                    <div className="service-title">
+                      <h3>Project Two</h3>
+                    </div>
+
+                    <div className="service-content">
+                      <p>
+                        orem ipsum, dolor sit amet consectetur adipisicing elit
+                      </p>
+                    </div>
+                    <a href="#" className="btn btn-primary">
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-4 col-lg-3">
+                <div className="item mb-3">
+                  <div className="service-image">
+                    <img src={project3} className="w-100" alt="" />
+                  </div>
+                  <div className="service-body">
+                    <div className="service-title">
+                      <h3>Project Three</h3>
+                    </div>
+
+                    <div className="service-content">
+                      <p>
+                        orem ipsum, dolor sit amet consectetur adipisicing elit
+                      </p>
+                    </div>
+                    <a href="#" className="btn btn-primary">
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-4 col-lg-3">
+                <div className="item mb-3">
+                  <div className="service-image">
+                    <img src={project4} className="w-100" alt="" />
+                  </div>
+                  <div className="service-body">
+                    <div className="service-title">
+                      <h3>Project Four</h3>
+                    </div>
+
+                    <div className="service-content">
+                      <p>
+                        orem ipsum, dolor sit amet consectetur adipisicing elit
+                      </p>
+                    </div>
+                    <a href="#" className="btn btn-primary">
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonial Section */}
+        <section className="section-6 py-5">
+          <div className="container py-5">
+            <div className="section-header text-center">
+              <span>Testimonials</span>
+              <h2>What people are saying about us</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+                consequatur atque quos est quibusdam officiis!
+              </p>
+            </div>
+
+            <div className="row">
+              <Swiper
+                modules={[Pagination]}
+                spaceBetween={50}
+                slidesPerView={3}
+                breakpoints={{
+                  320: { slidesPerView: 1 },
+                  768: { slidesPerView: 2 },
+                  1200: { slidesPerView: 3 },
+                }}
+                pagination={{ clickable: true }}
+              >
+                <SwiperSlide>
+                  <div className="card shadow border-0">
+                    <div className="card-body p-5">
+                      <div className="rating">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                      </div>
+
+                      <div className="content pt-3">
+                        <p>
+                          Lorem ipsum dolor, sit amet consectetur adipisicing
+                          elit. Tempore fugit molestiae nostrum sit culpa illo
+                          ipsum necessitatibus praesentium perferendis veritatis
+                          quibusdam, nisi, tenetur aspernatur vero at dicta
+                          aliquid deleniti ea.
+                        </p>
+                      </div>
+                      <hr />
+
+                      <div className="d-flex meta">
+                        <div>
+                          <img
+                            src={AvatarImg}
+                            width={60}
+                            alt=""
+                            className="me-3"
+                          />
+                        </div>
+
+                        <div>
+                          <div className="name">John Doe</div>
+                          <div>CEO</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+
+                <SwiperSlide>
+                  <div className="card shadow border-0">
+                    <div className="card-body p-5">
+                      <div className="rating">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                      </div>
+
+                      <div className="content pt-3">
+                        <p>
+                          Lorem ipsum dolor, sit amet consectetur adipisicing
+                          elit. Tempore fugit molestiae nostrum sit culpa illo
+                          ipsum necessitatibus praesentium perferendis veritatis
+                          quibusdam, nisi, tenetur aspernatur vero at dicta
+                          aliquid deleniti ea.
+                        </p>
+                      </div>
+                      <hr />
+
+                      <div className="d-flex meta">
+                        <div>
+                          <img
+                            src={AvatarImg}
+                            width={60}
+                            alt=""
+                            className="me-3"
+                          />
+                        </div>
+
+                        <div>
+                          <div className="name">John Doe</div>
+                          <div>CEO</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+
+                <SwiperSlide>
+                  <div className="card shadow border-0">
+                    <div className="card-body p-5">
+                      <div className="rating">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                      </div>
+
+                      <div className="content pt-3">
+                        <p>
+                          Lorem ipsum dolor, sit amet consectetur adipisicing
+                          elit. Tempore fugit molestiae nostrum sit culpa illo
+                          ipsum necessitatibus praesentium perferendis veritatis
+                          quibusdam, nisi, tenetur aspernatur vero at dicta
+                          aliquid deleniti ea.
+                        </p>
+                      </div>
+                      <hr />
+
+                      <div className="d-flex meta">
+                        <div>
+                          <img
+                            src={AvatarImg}
+                            width={60}
+                            alt=""
+                            className="me-3"
+                          />
+                        </div>
+
+                        <div>
+                          <div className="name">John Doe</div>
+                          <div>CEO</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+
+                <SwiperSlide>
+                  <div className="card shadow border-0">
+                    <div className="card-body p-5">
+                      <div className="rating">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-star-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                      </div>
+
+                      <div className="content pt-3">
+                        <p>
+                          Lorem ipsum dolor, sit amet consectetur adipisicing
+                          elit. Tempore fugit molestiae nostrum sit culpa illo
+                          ipsum necessitatibus praesentium perferendis veritatis
+                          quibusdam, nisi, tenetur aspernatur vero at dicta
+                          aliquid deleniti ea.
+                        </p>
+                      </div>
+                      <hr />
+
+                      <div className="d-flex meta">
+                        <div>
+                          <img
+                            src={AvatarImg}
+                            width={60}
+                            alt=""
+                            className="me-3"
+                          />
+                        </div>
+
+                        <div>
+                          <div className="name">John Doe</div>
+                          <div>CEO</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              </Swiper>
+            </div>
+          </div>
+        </section>
+
+        {/* Blog and Article Section */}
+        <section className="section-7 py-5 bg-light">
+          <div className="container py-5">
+            <div className="section-header text-center">
+              <span>Blog and News</span>
+              <h2>Article and Blog Posts</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+                consequatur atque quos est quibusdam officiis!
+              </p>
+            </div>
+
+            <div className="row pt-4">
+              <div className="col-md-4 col-lg-3">
+                <div className="card shadow border-0 mb-3">
+                  <div className="card-img-top">
+                    <img src={Service1} alt="" className="w-100" height="250px"/>
+                  </div>
+
+                  <div className="card-body p-4">
+                    <div className="mb-3">
+                      <a className="title" href="">
+                        Dummy Blog Title
+                      </a>
+                    </div>
+
+                    <a className="btn btn-primary" href="">
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4 col-lg-3">
+                <div className="card shadow border-0 mb-3">
+                  <div className="card-img-top">
+                    <img src={Service2} alt="" className="w-100" height="250px"/>
+                  </div>
+
+                  <div className="card-body p-4">
+                    <div className="mb-3">
+                      <a className="title" href="">
+                        Dummy Blog Title
+                      </a>
+                    </div>
+
+                    <a className="btn btn-primary" href="">
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-4 col-lg-3">
+                <div className="card shadow border-0 mb-3">
+                  <div className="card-img-top">
+                    <img src={Service3} alt="" className="w-100" height="250px" />
+                  </div>
+
+                  <div className="card-body p-4">
+                    <div className="mb-3">
+                      <a className="title" href="">
+                        Dummy Blog Title
+                      </a>
+                    </div>
+
+                    <a className="btn btn-primary" href="">
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-4 col-lg-3">
+                <div className="card shadow border-0 mb-3">
+                  <div className="card-img-top">
+                    <img src={Service4} alt="" className="w-100" height="250px" />
+                  </div>
+
+                  <div className="card-body p-4">
+                    <div className="mb-3">
+                      <a className="title" href="">
+                        Dummy Blog Title
+                      </a>
+                    </div>
+
+                    <a className="btn btn-primary" href="">
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />

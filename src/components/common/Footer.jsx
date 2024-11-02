@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="container py-5">
         <div className="row">
           <div className="col-md-3">
-            <h3>UrbanEdge Constructions</h3>
+            <h3 className="mb-3">UrbanEdge Constructions</h3>
             <div className="pe-5">
               <p>
                 There are many variations of passages of Lorem Ipsum available,
@@ -17,7 +17,7 @@ const Footer = () => {
           </div>
 
           <div className="col-md-3">
-            <h3>Our Services</h3>
+            <h3 className="mb-3">Our Services</h3>
             <ul>
               <li>
                 <a href="">Speciality Construction</a>
@@ -39,7 +39,7 @@ const Footer = () => {
           </div>
 
           <div className="col-md-3">
-            <h3>Quick Links</h3>
+            <h3 className="mb-3">Quick Links</h3>
             <ul>
               <li>
                 <a href="">About Us</a>
@@ -61,7 +61,7 @@ const Footer = () => {
           </div>
 
           <div className="col-md-3">
-            <h3>Contact Us</h3>
+            <h3 className="mb-3">Contact Us</h3>
             <ul>
               <li>
                 <a href="">01851-939223</a>
