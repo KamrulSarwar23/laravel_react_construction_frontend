@@ -8,7 +8,7 @@ const Header = () => {
     <header>
       <div className="container py-3">
         <Navbar expand="lg">
-          <Navbar.Brand href="/" className="logo">
+          <Navbar.Brand as={Link} to="/" className="logo">
             <span>UrbanEdge</span> Constructions
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -22,16 +22,16 @@ const Header = () => {
                 About Us
               </Nav.Link>
 
-              <Nav.Link as={Link} to="#" className="nav-link">
+              <Nav.Link as={Link} to="/service" className="nav-link">
                 Services
               </Nav.Link>
-              <Nav.Link as={Link} to="#" className="nav-link">
+              <Nav.Link as={Link} to="/project" className="nav-link">
                 Projects
               </Nav.Link>
-              <Nav.Link as={Link} to="#" className="nav-link">
+              <Nav.Link as={Link} to="/blog" className="nav-link">
                 Blogs
               </Nav.Link>
-              <Nav.Link as={Link} to="#" className="nav-link">
+              <Nav.Link as={Link} to="/contact" className="nav-link">
                 Contact Us
               </Nav.Link>
             </Nav>

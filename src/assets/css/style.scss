@@ -24,8 +24,12 @@ h3 {
   font-size: 1.5em;
 }
 
-p {
+h4 {
   font-size: 1.2em;
+}
+
+p {
+  font-size: 1em;
 }
 
 ul {
@@ -176,11 +180,13 @@ footer {
     .service-image{
       position: relative;
       overflow: hidden;
+      
       img{
         width: 100%;
         border-radius: 30px;
         aspect-ratio: 1 / 1.2;
         object-fit: cover;
+       
       }
       &:after{
         content: "";
@@ -240,6 +246,7 @@ footer {
         border-radius: 30px;
         aspect-ratio: 1 / 1.2;
         object-fit: cover;
+     
       }
       &:after{
         content: "";
@@ -316,11 +323,17 @@ footer {
 
 .section-7{
   .card{
-      border-radius: 30px;
+      border-radius: 20px;
+      overflow: hidden;
       .card-img-top{
         img{
-          border-top-left-radius: 30px;
-          border-top-right-radius: 30px;
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
+          
+        }
+        &:hover{
+          transform:scale(1.1);
+          transition: 0.3s all ease-in-out;
         }
       }
     .card-body{
@@ -329,5 +342,81 @@ footer {
         text-decoration: none;
       }
     }
+  }
+}
+
+
+// About us Page
+
+.aboutus{
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)),
+  url("../images/hero.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .hero-content{
+    color: $text-white;
+    margin-left: 30px;
+ 
+  .aboutspan{
+    color: $secondary-color
+  }
+  }
+}
+
+.section-8{
+  .card{
+    border-radius: 20px;
+    overflow: hidden;
+    .card-img-top{
+      img{
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        
+      }
+
+    }
+  .card-body{
+    a.title{
+      font-size: 1.3em;
+      text-decoration: none;
+    }
+
+    .card-title{
+      font-weight: bold;
+      margin-bottom: -1px;
+    }
+
+    .card-subtitle{
+     color: $light-background;
+    }
+  }
+}
+}
+
+.section-10{
+
+  .card{
+    border-radius: 20px;
+  }
+  .card-body{
+    a, p{
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 2.5em;
+  }
+
+  h2 {
+    font-size: 2em;
   }
 }

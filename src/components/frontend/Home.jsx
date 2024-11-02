@@ -1,7 +1,8 @@
 import React from "react";
-import AboutImg from "../../assets/images/about-us.jpg";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
+import Aboutus from "../common/Aboutus";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
@@ -17,7 +18,7 @@ import project2 from "../../assets/images/construction6.jpg";
 import project3 from "../../assets/images/construction7.jpg";
 import project4 from "../../assets/images/construction8.jpg";
 
-import blogimg from "../../assets/images/construction8.jpg";
+// import blogimg from "../../assets/images/construction8.jpg";
 
 import Icon1 from "../../assets/images/icon-1.svg";
 import Icon2 from "../../assets/images/icon-2.svg";
@@ -56,37 +57,7 @@ const Home = () => {
         </section>
 
         {/* About Us Section */}
-        <section className="section-2 py-5">
-          <div className="container py-5">
-            <div className="row">
-              <div className="col-md-6">
-                <img src={AboutImg} className="mb-5 w-100" />
-              </div>
-
-              <div className="col-md-6">
-                <span>about us</span>
-
-                <h2>Crafting tructures that last a lifetime</h2>
-
-                <p>
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using Content
-                  here, content here, making it look like readable English.
-                </p>
-
-                <p>
-                  Many desktop publishing packages and web page editors now use
-                  Lorem Ipsum as their default model text, and a search for
-                  lorem ipsum will uncover many web sites still in their
-                  infancy. Various versions have evolved over the years,
-                  sometimes by accident, sometimes on purpose.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+          <Aboutus/>
 
         {/* Services Section */}
         <section className="section-3 bg-light py-5">
@@ -399,7 +370,7 @@ const Home = () => {
                           width="20"
                           height="20"
                           fill="currentColor"
-                          class="bi bi-star-fill"
+                          className="bi bi-star-fill"
                           viewBox="0 0 16 16"
                         >
                           <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
@@ -410,7 +381,7 @@ const Home = () => {
                           width="20"
                           height="20"
                           fill="currentColor"
-                          class="bi bi-star-fill"
+                          className="bi bi-star-fill"
                           viewBox="0 0 16 16"
                         >
                           <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
@@ -421,7 +392,7 @@ const Home = () => {
                           width="20"
                           height="20"
                           fill="currentColor"
-                          class="bi bi-star-fill"
+                          className="bi bi-star-fill"
                           viewBox="0 0 16 16"
                         >
                           <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
@@ -432,7 +403,7 @@ const Home = () => {
                           width="20"
                           height="20"
                           fill="currentColor"
-                          class="bi bi-star-fill"
+                          className="bi bi-star-fill"
                           viewBox="0 0 16 16"
                         >
                           <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
@@ -443,7 +414,7 @@ const Home = () => {
                           width="20"
                           height="20"
                           fill="currentColor"
-                          class="bi bi-star-fill"
+                          className="bi bi-star-fill"
                           viewBox="0 0 16 16"
                         >
                           <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
@@ -489,7 +460,7 @@ const Home = () => {
                           width="20"
                           height="20"
                           fill="currentColor"
-                          class="bi bi-star-fill"
+                          className="bi bi-star-fill"
                           viewBox="0 0 16 16"
                         >
                           <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
@@ -500,7 +471,7 @@ const Home = () => {
                           width="20"
                           height="20"
                           fill="currentColor"
-                          class="bi bi-star-fill"
+                          className="bi bi-star-fill"
                           viewBox="0 0 16 16"
                         >
                           <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
@@ -511,7 +482,7 @@ const Home = () => {
                           width="20"
                           height="20"
                           fill="currentColor"
-                          class="bi bi-star-fill"
+                          className="bi bi-star-fill"
                           viewBox="0 0 16 16"
                         >
                           <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
@@ -522,7 +493,7 @@ const Home = () => {
                           width="20"
                           height="20"
                           fill="currentColor"
-                          class="bi bi-star-fill"
+                          className="bi bi-star-fill"
                           viewBox="0 0 16 16"
                         >
                           <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
@@ -533,7 +504,7 @@ const Home = () => {
                           width="20"
                           height="20"
                           fill="currentColor"
-                          class="bi bi-star-fill"
+                          className="bi bi-star-fill"
                           viewBox="0 0 16 16"
                         >
                           <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
@@ -849,6 +820,7 @@ const Home = () => {
             </div>
           </div>
         </section>
+
       </main>
 
       <Footer />
