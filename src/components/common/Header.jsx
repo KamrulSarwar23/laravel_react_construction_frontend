@@ -18,20 +18,20 @@ const Header = () => {
                 Home
               </Nav.Link>
 
-              <Nav.Link as={Link} to="/about" className="nav-link">
+              <Nav.Link as={Link} to="/about-us" className="nav-link">
                 About Us
               </Nav.Link>
 
-              <Nav.Link as={Link} to="/service" className="nav-link">
+              <Nav.Link as={Link} to="/services" className="nav-link">
                 Services
               </Nav.Link>
-              <Nav.Link as={Link} to="/project" className="nav-link">
+              <Nav.Link as={Link} to="/projects" className="nav-link">
                 Projects
               </Nav.Link>
-              <Nav.Link as={Link} to="/blog" className="nav-link">
+              <Nav.Link as={Link} to="/blogs" className="nav-link">
                 Blogs
               </Nav.Link>
-              <Nav.Link as={Link} to="/contact" className="nav-link">
+              <Nav.Link as={Link} to="/contact-us" className="nav-link">
                 Contact Us
               </Nav.Link>
             </Nav>

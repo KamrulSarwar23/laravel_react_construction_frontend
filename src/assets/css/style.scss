@@ -1,6 +1,6 @@
 // Global Colors
-$primary-color: #fe538d;
-$secondary-color: #ffb703;
+$primary-color: #1590c9;
+$secondary-color: #daa51f;
 $text-color: #000;
 $text-white: #ffffff;
 $dark-background: #222725;
@@ -75,6 +75,7 @@ a{
   }
 }
 
+
 .btn-secondary {
   background-color: $secondary-color;
   border: 1px solid $secondary-color;
@@ -89,22 +90,29 @@ a{
 }
 
 header {
+
+  background-color: #0886c0;
   nav {
     .nav-link {
       font-size: 1em;
-      color: $text-color;
+      color: white;
       text-transform: uppercase;
       font-weight: 500;
       margin-left: 20px;
+      transition: 0.3s all ease;
     }
 
     .logo {
       text-transform: uppercase;
-      font-size: 1em;
+      font-size: 1.1em;
       font-weight: 500;
+      color: white;
+      &:hover{
+        color: white;
+      }
 
       span {
-        color: $primary-color;
+        color: $secondary-color;
       }
     }
   }
@@ -418,5 +426,33 @@ footer {
 
   h2 {
     font-size: 2em;
+  }
+}
+
+
+.login{
+  .card{
+    min-width: 450px;
+  }
+}
+
+.dashboard{
+  .card{
+    min-height: 400px;
+  }
+}
+
+
+.sidebar{
+  ul{
+    li{
+     
+      a{
+        display: block;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.20);
+            
+      }
+    }
   }
 }
