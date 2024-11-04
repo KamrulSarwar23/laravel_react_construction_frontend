@@ -5,7 +5,7 @@ const Aboutus = () => {
   return (
     
     <section className="section-2 py-5">
-    <div className="container py-5">
+    <div className="container mt-4">
       <div className="row">
         <div className="col-md-6">
           <img src={AboutImg} className="mb-5 w-100" />

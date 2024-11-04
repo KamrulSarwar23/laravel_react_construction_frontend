@@ -43,7 +43,6 @@ const Login = () => {
       navigate("/admin-dashboard");
     }
 
-    console.log(result);
   };
 
   return (
@@ -52,7 +51,12 @@ const Login = () => {
 
       <section className="login py-5">
         <div className="container d-flex justify-content-center py-5">
-          <div className="card p-5 shadow border-0">
+          <div className="row card p-5 shadow border-0">
+            <div className="col-md-5">
+
+
+            </div>
+
             <div>
               <h2 className="text-center">Login</h2>
             </div>
