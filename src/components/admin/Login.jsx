@@ -40,7 +40,7 @@ const Login = () => {
 
       localStorage.setItem("userinfo", JSON.stringify(userinfo));
       login(userinfo)
-      navigate("/admin-dashboard");
+      navigate("/admin/dashboard");
     }
 
   };
