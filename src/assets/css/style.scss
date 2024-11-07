@@ -34,25 +34,32 @@ p {
 
 ul {
   padding-left: 0;
+
   li {
     list-style: none;
   }
 }
 
-a{
+a {
   text-decoration: none;
-  color:$text-color;
-  &:hover{
+  color: $text-color;
+
+  &:hover {
     color: $primary-color;
   }
 }
 
-.bg-light{
+.bg-light {
   background-color: $light-background;
 }
 
-.section-header{
-  span{
+.active {
+  color: $secondary-color !important;
+  /* or any other styling you prefer */
+}
+
+.section-header {
+  span {
     color: $primary-color;
     font-size: 1.2em;
     padding-bottom: 10px;
@@ -69,6 +76,7 @@ a{
   font-size: 1em;
   font-weight: 500;
   text-transform: uppercase;
+
   &:hover {
     background-color: $secondary-color;
     border: 1px solid $secondary-color;
@@ -83,6 +91,7 @@ a{
   font-size: 1em;
   font-weight: 500;
   text-transform: uppercase;
+
   &:hover {
     background-color: $primary-color;
     border: 1px solid $primary-color;
@@ -92,6 +101,7 @@ a{
 header {
 
   background-color: #0886c0;
+
   nav {
     .nav-link {
       font-size: 1em;
@@ -102,12 +112,17 @@ header {
       transition: 0.3s all ease;
     }
 
+    .nav-link:hover{
+      color: $secondary-color !important;
+    }
+
     .logo {
       text-transform: uppercase;
       font-size: 1.1em;
       font-weight: 500;
       color: white;
-      &:hover{
+
+      &:hover {
         color: white;
       }
 
@@ -153,6 +168,7 @@ header {
 footer {
   background-color: $dark-background;
   color: $text-white;
+
   h3 {
     color: $secondary-color;
   }
@@ -168,35 +184,38 @@ footer {
 }
 
 
-.section-3{
-  .item{
-    position:relative;
+.section-3 {
+  .item {
+    position: relative;
     overflow: hidden;
     color: $text-white;
-    &:hover{
-      .service-body{
+
+    &:hover {
+      .service-body {
         transform: translateY(0%);
 
-        .service-content{
+        .service-content {
           opacity: 1;
 
         }
       }
 
-    
+
     }
-    .service-image{
+
+    .service-image {
       position: relative;
       overflow: hidden;
-      
-      img{
+
+      img {
         width: 100%;
         border-radius: 30px;
         aspect-ratio: 1 / 1.2;
         object-fit: cover;
-       
+
       }
-      &:after{
+
+      &:after {
         content: "";
         position: absolute;
         top: 0;
@@ -204,13 +223,13 @@ footer {
         bottom: 0;
         right: 0;
         border-radius: 30px;
-        background: linear-gradient(180deg, rgba(217, 217,217,0) 0%, rgba(217,217,217,0) 13.2%, rgba(0,0,0,0.51) 42.5%, rgba(0,0,0,0.63) 70%, #000000 100%);
+        background: linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, rgba(217, 217, 217, 0) 13.2%, rgba(0, 0, 0, 0.51) 42.5%, rgba(0, 0, 0, 0.63) 70%, #000000 100%);
       }
     }
 
-   
 
-    .service-body{
+
+    .service-body {
       position: absolute;
       left: 30px;
       right: 30px;
@@ -218,7 +237,7 @@ footer {
       transform: translateY(80%);
       transition: all 0.4s ease;
 
-      .service-content{
+      .service-content {
         opacity: 0;
         transition: all 0.4s ease-in-out;
       }
@@ -229,34 +248,38 @@ footer {
 
 
 
-.section-5{
-  .item{
-    position:relative;
+.section-5 {
+  .item {
+    position: relative;
     overflow: hidden;
     color: $text-white;
-    &:hover{
-      .service-body{
+
+    &:hover {
+      .service-body {
         transform: translateY(0%);
 
-        .service-content{
+        .service-content {
           opacity: 1;
 
         }
       }
 
-    
+
     }
-    .service-image{
+
+    .service-image {
       position: relative;
       overflow: hidden;
-      img{
+
+      img {
         width: 100%;
         border-radius: 30px;
         aspect-ratio: 1 / 1.2;
         object-fit: cover;
-     
+
       }
-      &:after{
+
+      &:after {
         content: "";
         position: absolute;
         top: 0;
@@ -264,13 +287,13 @@ footer {
         bottom: 0;
         right: 0;
         border-radius: 30px;
-        background: linear-gradient(180deg, rgba(217, 217,217,0) 0%, rgba(217,217,217,0) 13.2%, rgba(0,0,0,0.51) 42.5%, rgba(0,0,0,0.63) 70%, #000000 100%);
+        background: linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, rgba(217, 217, 217, 0) 13.2%, rgba(0, 0, 0, 0.51) 42.5%, rgba(0, 0, 0, 0.63) 70%, #000000 100%);
       }
     }
 
-   
 
-    .service-body{
+
+    .service-body {
       position: absolute;
       left: 30px;
       right: 30px;
@@ -278,7 +301,7 @@ footer {
       transform: translateY(80%);
       transition: all 0.4s ease;
 
-      .service-content{
+      .service-content {
         opacity: 0;
         transition: all 0.4s ease-in-out;
       }
@@ -286,66 +309,73 @@ footer {
   }
 }
 
-.section-4{
-  .card{
+.section-4 {
+  .card {
     border-radius: 30px;
   }
 }
 
 
-.section-6{
+.section-6 {
 
-    .swiper{
-        padding: 25px 25px 50px 25px;
+  .swiper {
+    padding: 25px 25px 50px 25px;
 
-        .swiper-pagination-bullet-active{
-          background-color: $secondary-color;
-        }
-
+    .swiper-pagination-bullet-active {
+      background-color: $secondary-color;
     }
-    .card{
-      border-radius: 30px;
-      .card-body{
-        .rating{
-          color: $secondary-color;
-        }
 
-        .content{
-         p{
+  }
+
+  .card {
+    border-radius: 30px;
+
+    .card-body {
+      .rating {
+        color: $secondary-color;
+      }
+
+      .content {
+        p {
           font-size: 1em;
-         }
         }
       }
-      .meta{
-        img{
-          border-radius: 50%;
-        }
-      }
-      .name{
-        font-size: 1.2em;
-        font-weight: bold;
-      }
-
     }
+
+    .meta {
+      img {
+        border-radius: 50%;
+      }
+    }
+
+    .name {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+  }
 }
 
-.section-7{
-  .card{
-      border-radius: 20px;
-      overflow: hidden;
-      .card-img-top{
-        img{
-          border-top-left-radius: 20px;
-          border-top-right-radius: 20px;
-          
-        }
-        &:hover{
-          transform:scale(1.1);
-          transition: 0.3s all ease-in-out;
-        }
+.section-7 {
+  .card {
+    border-radius: 20px;
+    overflow: hidden;
+
+    .card-img-top {
+      img {
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+
       }
-    .card-body{
-      a.title{
+
+      &:hover {
+        transform: scale(1.1);
+        transition: 0.3s all ease-in-out;
+      }
+    }
+
+    .card-body {
+      a.title {
         font-size: 1.3em;
         text-decoration: none;
       }
@@ -356,9 +386,9 @@ footer {
 
 // About us Page
 
-.aboutus{
+.aboutus {
   background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)),
-  url("../images/hero.jpg");
+    url("../images/hero.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 300px;
@@ -366,53 +396,58 @@ footer {
   flex-direction: column;
   justify-content: center;
 
-  .hero-content{
+  .hero-content {
     color: $text-white;
     margin-left: 30px;
- 
-  .aboutspan{
-    color: $secondary-color
-  }
+
+    .aboutspan {
+      color: $secondary-color
+    }
   }
 }
 
-.section-8{
-  .card{
+.section-8 {
+  .card {
     border-radius: 20px;
     overflow: hidden;
-    .card-img-top{
-      img{
+
+    .card-img-top {
+      img {
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
-        
+
       }
 
     }
-  .card-body{
-    a.title{
-      font-size: 1.3em;
-      text-decoration: none;
-    }
 
-    .card-title{
-      font-weight: bold;
-      margin-bottom: -1px;
-    }
+    .card-body {
+      a.title {
+        font-size: 1.3em;
+        text-decoration: none;
+      }
 
-    .card-subtitle{
-     color: $light-background;
+      .card-title {
+        font-weight: bold;
+        margin-bottom: -1px;
+      }
+
+      .card-subtitle {
+        color: $light-background;
+      }
     }
   }
 }
-}
 
-.section-10{
+.section-10 {
 
-  .card{
+  .card {
     border-radius: 20px;
   }
-  .card-body{
-    a, p{
+
+  .card-body {
+
+    a,
+    p {
       font-size: 14px;
       margin-bottom: 10px;
     }
@@ -422,28 +457,28 @@ footer {
 
 
 
-.login{
-  .card{
+.login {
+  .card {
     min-width: 450px;
   }
 }
 
-.dashboard{
-  .card{
+.dashboard {
+  .card {
     min-height: 400px;
   }
 }
 
 
-.sidebar{
-  ul{
-    li{
-     
-      a{
+.sidebar {
+  ul {
+    li {
+
+      a {
         display: block;
         padding: 10px 0;
-        border-bottom: 1px solid rgba(0,0,0,0.20);
-            
+        border-bottom: 1px solid rgba(0, 0, 0, 0.20);
+
       }
     }
   }
@@ -460,8 +495,8 @@ footer {
     font-size: 2em;
   }
 
-  .login{
-    .card{
+  .login {
+    .card {
       min-width: 300px;
     }
   }
