@@ -2,6 +2,10 @@ export const apiUrl = 'http://localhost:8000/api/'
 
 export const token = () => {
     const userinfo = localStorage.getItem('userinfo');
-    const data = JSON.parse(userinfo);
-    return data.token;
-}
+    if (userinfo) {
+      const data = JSON.parse(userinfo);
+      return data?.token;  // Safely access token if it exists
+    }
+    return null;  // Return null if no userinfo is found
+  };
+  
