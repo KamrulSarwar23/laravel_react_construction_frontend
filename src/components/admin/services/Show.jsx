@@ -4,17 +4,19 @@ import Footer from "../../common/Footer";
 import SideBar from "../../common/SideBar";
 import { apiUrl, token } from "../../common/http";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const Show = () => {
   const [services, setServices] = useState([]);
 
+
   const fetchservices = async () => {
     try {
-      const authToken = token(); // Call token() to retrieve the token
+      const authToken = token();
 
       if (!authToken) {
         console.error("Error: No token found.");
-        return; // Exit if there's no token
+        return;
       }
 
       const res = await fetch(apiUrl + "services", {
@@ -36,6 +38,39 @@ export const Show = () => {
       console.error("Error fetching services:", error);
     }
   };
+
+  const deleteService = async (id) => {
+    if (confirm("Are You Sure?")) {
+      const authToken = token(); // Fetch token here
+      if (!authToken) {
+        toast.error("Authorization token missing.");
+        return;
+      }
+
+      try {
+        const res = await fetch(`${apiUrl}services/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
+
+        const result = await res.json();
+
+        if (result.status === true) {
+          setServices(services.filter((service) => service.id !== id));
+          toast.success(result.message);
+        } else {
+          toast.error(result.message);
+        }
+      } catch (error) {
+        toast.error("Failed to delete the service. Please try again.");
+      }
+    }
+  };
+
 
   useEffect(() => {
     fetchservices();
@@ -80,7 +115,7 @@ export const Show = () => {
                     <tbody>
                       {services.length > 0 ? (
                         services.map((service) => (
-                            <tr key={service.id}>
+                          <tr key={service.id}>
                             <td>{service.id}</td>
                             <td>{service.title}</td>
                             <td>{service.slug}</td>
@@ -90,15 +125,19 @@ export const Show = () => {
                             </td>
 
                             <td>
-                              <Link
-                                to={"/admin/services/edit"}
+                              <Link to={`/admin/services/edit/${service.id}`}
                                 className="btn btn-sm btn-info me-2"
                               >
                                 Edit
                               </Link>
-                              <a href="#" className="btn btn-sm btn-danger">
+                              <Link
+                                onClick={() => deleteService(service.id)}
+                                href="#"
+                                className="btn btn-sm btn-danger"
+                              >
                                 Delete
-                              </a>
+                              </Link>
+
                             </td>
                           </tr>
                         ))

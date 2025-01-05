@@ -1,43 +1,101 @@
-import React from "react";
+import React, { useState, useRef, useMemo } from "react";
 import Header from "../../common/Header";
 import Footer from "../../common/Footer";
 import SideBar from "../../common/SideBar";
 import { useForm } from "react-hook-form";
-import { apiUrl, token } from "../../common/http";
-import { useNavigate } from "react-router-dom";
+import { apiUrl, token, fileUrl } from "../../common/http";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import JoditEditor from "jodit-react";
 
 export const Update = () => {
-
-  const navigate = useNavigate();
-
-
   
+  const navigate = useNavigate();
+  const editor = useRef(null);
+  const [content, setContent] = useState('');
+  const [service, setService] = useState('');
+  const [isDisable, setIsDisable] = useState(false);
+  const [imageId, setImageId] = useState(null);
+  const params = useParams();
+
+  const config = useMemo(
+    () => ({
+      readonly: false,
+      placeholder: "Enter content here...",
+    }),
+    []
+  );
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: async () => {
+      const res = await fetch(apiUrl + 'services/' + params.id, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token()}`,
+        },
+      });
+  
+      const result = await res.json();
+      setContent(result.data.content);
+      setService(result.data);
+      return {
+        title: result.data.title,
+        slug: result.data.slug,
+        short_desc: result.data.short_desc,
+        status: result.data.status,
+      }
+    }
+  });
 
   const onSubmit = async (data) => {
-    const res = await fetch(apiUrl + "services", {
-      method: "POST",
+    const newData = { ...data, "content": content, "imageId" : imageId};
+    const res = await fetch(apiUrl + "services/" + params.id, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
         Authorization: `Bearer ${token()}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(newData),
     });
 
     const result = await res.json();
 
-    if (result.status == true) {
+    if (result.status) {
       toast.success(result.message);
       navigate("/admin/services");
+    } else {
+      toast.error(result.message);
     }
   };
+
+  const handleFile = async (e) => {
+      const formData = new FormData();
+      const file = e.target.files[0];
+      formData.append("image", file);
+
+      await fetch(apiUrl + "temp-images", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token()}`,
+        },
+        body: formData
+      }).then(response => response.json())
+        .then(result => {
+            if (result.status == false) {
+                toast.error(result.errors.image[0])
+            }else{
+                setImageId(result.data.id)
+            }
+        })
+  }
 
   return (
     <div>
@@ -53,7 +111,7 @@ export const Update = () => {
               <div className="card shadow border-0">
                 <div className="card-body">
                   <div className="d-flex justify-content-between">
-                    <h4 className="h5">Service Update</h4>
+                    <h4 className="h5">Create Service</h4>
                   </div>
 
                   <hr />
@@ -64,6 +122,7 @@ export const Update = () => {
                         Title
                       </label>
                       <input
+                        placeholder="Title"
                         {...register("title", {
                           required: "The title field is required",
                         })}
@@ -85,6 +144,7 @@ export const Update = () => {
                         Slug
                       </label>
                       <input
+                        placeholder="Slug"
                         {...register("slug", {
                           required: "The slug field is required",
                         })}
@@ -106,6 +166,7 @@ export const Update = () => {
                         Short Description
                       </label>
                       <textarea
+                        placeholder="Short Description"
                         {...register("short_desc", {
                           required: "The short description field is required",
                         })}
@@ -126,22 +187,28 @@ export const Update = () => {
                       <label htmlFor="content" className="form-label">
                         Content
                       </label>
-                      <textarea
-                        {...register("content", {
-                          required: "The content field is required",
-                        })}
-                        className={`form-control ${
-                          errors.content ? "is-invalid" : ""
-                        }`}
-                        rows={5}
-                        id="content"
-                      ></textarea>
-                      {errors.content && (
-                        <p className="invalid-feedback">
-                          {errors.content.message}
-                        </p>
-                      )}
+                      <JoditEditor
+                        ref={editor}
+                        value={content}
+                        config={config}
+                        onChange={(newContent) => setContent(newContent)}
+                      />
                     </div>
+
+
+                    <div className="mb-3">
+                      <label htmlFor="content" className="form-label">
+                        Image
+                      </label>
+                      <br />
+                      <input onChange={handleFile} className="form-control mb-3" type="file" />
+
+                      {
+                        service.image && <img width={150} height={180} src={fileUrl + 'uploads/services/small/'+ service.image } alt="" />
+                      }
+
+                    </div>
+
 
                     <div className="mb-3">
                       <label htmlFor="status" className="form-label">
@@ -154,8 +221,7 @@ export const Update = () => {
                         id="status"
                         className={`form-control ${
                           errors.status ? "is-invalid" : ""
-                        }`}
-                      >
+                        }`}>
                         <option value="1">Active</option>
                         <option value="0">Inactive</option>
                       </select>
@@ -165,10 +231,9 @@ export const Update = () => {
                         </p>
                       )}
                     </div>
-                    <button type="submit" className="btn btn-primary">
-                      Submit
+                    <button disabled={isDisable} type="submit" className="btn btn-primary">
+                      Update
                     </button>
-
                   </form>
                 </div>
               </div>

@@ -9,14 +9,17 @@ import { toast } from "react-toastify";
 import JoditEditor from "jodit-react";
 
 export const Create = () => {
+
   const navigate = useNavigate();
   const editor = useRef(null);
   const [content, setContent] = useState("");
+  const [isDisable, setIsDisable] = useState(false);
+  const [imageId, setImageId] = useState(null);
 
   const config = useMemo(
     () => ({
       readonly: false,
-      placeholder: "Enter content here...", // Directly use placeholder text
+      placeholder: "Enter content here...",
     }),
     []
   );
@@ -28,7 +31,7 @@ export const Create = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const newData = { ...data, content }; // Add content to the data object
+    const newData = { ...data, "content": content, "imageId": imageId }; // Add content to the data object
     const res = await fetch(apiUrl + "services", {
       method: "POST",
       headers: {
@@ -48,6 +51,28 @@ export const Create = () => {
       toast.error(result.message);
     }
   };
+
+  const handleFile = async (e) => {
+    const formData = new FormData();
+    const file = e.target.files[0];
+    formData.append("image", file);
+
+    await fetch(apiUrl + "temp-images", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token()}`,
+      },
+      body: formData
+    }).then(response => response.json())
+      .then(result => {
+        if (result.status == false) {
+          toast.error(result.errors.image[0])
+        } else {
+          setImageId(result.data.id)
+        }
+      })
+  }
 
   return (
     <div>
@@ -80,9 +105,8 @@ export const Create = () => {
                         })}
                         type="text"
                         id="title"
-                        className={`form-control ${
-                          errors.title ? "is-invalid" : ""
-                        }`}
+                        className={`form-control ${errors.title ? "is-invalid" : ""
+                          }`}
                       />
                       {errors.title && (
                         <p className="invalid-feedback">
@@ -102,9 +126,8 @@ export const Create = () => {
                         })}
                         type="text"
                         id="slug"
-                        className={`form-control ${
-                          errors.slug ? "is-invalid" : ""
-                        }`}
+                        className={`form-control ${errors.slug ? "is-invalid" : ""
+                          }`}
                       />
                       {errors.slug && (
                         <p className="invalid-feedback">
@@ -122,9 +145,8 @@ export const Create = () => {
                         {...register("short_desc", {
                           required: "The short description field is required",
                         })}
-                        className={`form-control ${
-                          errors.short_desc ? "is-invalid" : ""
-                        }`}
+                        className={`form-control ${errors.short_desc ? "is-invalid" : ""
+                          }`}
                         rows={5}
                         id="short_desc"
                       ></textarea>
@@ -148,6 +170,14 @@ export const Create = () => {
                     </div>
 
                     <div className="mb-3">
+                      <label htmlFor="content" className="form-label">
+                        Image
+                      </label>
+                      <br />
+                      <input onChange={handleFile} className="form-control" type="file" />
+                    </div>
+
+                    <div className="mb-3">
                       <label htmlFor="status" className="form-label">
                         Status
                       </label>
@@ -156,9 +186,8 @@ export const Create = () => {
                           required: "The status field is required",
                         })}
                         id="status"
-                        className={`form-control ${
-                          errors.status ? "is-invalid" : ""
-                        }`}
+                        className={`form-control ${errors.status ? "is-invalid" : ""
+                          }`}
                       >
                         <option value="1">Active</option>
                         <option value="0">Inactive</option>
@@ -169,7 +198,7 @@ export const Create = () => {
                         </p>
                       )}
                     </div>
-                    <button type="submit" className="btn btn-primary">
+                    <button disabled={isDisable} type="submit" className="btn btn-primary">
                       Submit
                     </button>
                   </form>

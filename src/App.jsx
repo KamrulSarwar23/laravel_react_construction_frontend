@@ -21,7 +21,7 @@ import Update from "./components/admin/services/Update";
 function App() {
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Routes>
           
           <Route path="/" element={<Home />} />
@@ -59,14 +59,14 @@ function App() {
             }
           />
 
-        <Route
-            path="/admin/services/edit"
-            element={
-              <RequireAuth>
-                <Update />
-              </RequireAuth>
-            }
-          />
+          <Route
+              path="/admin/services/edit/:id"
+              element={
+                <RequireAuth>
+                  <Update />
+                </RequireAuth>
+              }
+            />
 
 
         </Routes>
