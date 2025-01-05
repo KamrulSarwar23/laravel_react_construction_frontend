@@ -41,7 +41,7 @@ export const Show = () => {
 
   const deleteService = async (id) => {
     if (confirm("Are You Sure?")) {
-      const authToken = token(); // Fetch token here
+      const authToken = token();
       if (!authToken) {
         toast.error("Authorization token missing.");
         return;

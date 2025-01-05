@@ -70,6 +70,7 @@ export const Create = () => {
           toast.error(result.errors.image[0])
         } else {
           setImageId(result.data.id)
+          toast.success('Image Upload! Now You Can Update Service')
         }
       })
   }
