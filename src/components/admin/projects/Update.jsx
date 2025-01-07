@@ -3,21 +3,21 @@ import Header from "../../common/Header";
 import Footer from "../../common/Footer";
 import SideBar from "../../common/SideBar";
 import { useForm } from "react-hook-form";
-import { apiUrl, token } from "../../common/http";
-import { useNavigate } from "react-router-dom";
+import { apiUrl, token, fileUrl } from "../../common/http";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import JoditEditor from "jodit-react";
 
-export const Create = () => {
-
+export const Update = () => {
+  
   const navigate = useNavigate();
-  const editor = useRef(null);
-  const [content, setContent] = useState("");
+  const editor = useRef(null);  
+  const [content, setContent] = useState('');
+  const [project, setProject] = useState('');
   const [isDisable, setIsDisable] = useState(false);
   const [imageId, setImageId] = useState(null);
+  const params = useParams();
   const [previewImage, setPreviewImage] = useState(null);
-
-
   const config = useMemo(
     () => ({
       readonly: false,
@@ -30,12 +30,37 @@ export const Create = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: async () => {
+      const res = await fetch(apiUrl + 'projects/' + params.id, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token()}`,
+        },
+      });
+  
+      const result = await res.json();
+      setContent(result.data.content);
+      setProject(result.data);
+
+      return {
+        title: result.data.title,
+        slug: result.data.slug,
+        short_desc: result.data.short_desc,
+        construction_type: result.data.construction_type,
+        sector: result.data.sector,
+        location: result.data.location,
+        status: result.data.status,
+      }
+    }
+  });
 
   const onSubmit = async (data) => {
-    const newData = { ...data, "content": content, "imageId": imageId }; // Add content to the data object
-    const res = await fetch(apiUrl + "services", {
-      method: "POST",
+    const newData = { ...data, "content": content, "imageId" : imageId};
+    const res = await fetch(apiUrl + "projects/" + params.id, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -48,17 +73,11 @@ export const Create = () => {
 
     if (result.status) {
       toast.success(result.message);
-      navigate("/admin/services");
+      navigate("/admin/projects");
     } else {
-
-      if (result.status == false) {
-        toast.error(result.errors.slug[0])
-      }
       toast.error(result.message);
     }
   };
-
-  // State to store the selected image preview
 
   const handleFile = async (e) => {
     const file = e.target.files[0];
@@ -101,8 +120,6 @@ export const Create = () => {
     }
   };
 
-
-
   return (
     <div>
       <Header />
@@ -123,6 +140,7 @@ export const Create = () => {
                   <hr />
 
                   <form onSubmit={handleSubmit(onSubmit)}>
+                    
                     <div className="mb-3">
                       <label htmlFor="title" className="form-label">
                         Title
@@ -166,6 +184,63 @@ export const Create = () => {
                     </div>
 
                     <div className="mb-3">
+                      <label htmlFor="construction_type" className="form-label">
+                        Construction Type
+                      </label>
+                      <input
+                        placeholder=" Construction Type"
+                        {...register("construction_type")}
+                        type="text"
+                        id="construction_type"
+                        className={`form-control ${errors.construction_type ? "is-invalid" : ""
+                          }`}
+                      />
+                      {errors.construction_type && (
+                        <p className="invalid-feedback">
+                          {errors.construction_type.message}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="mb-3">
+                      <label htmlFor="sector" className="form-label">
+                      Sector
+                      </label>
+                      <input
+                        placeholder="Sector"
+                        {...register("sector")}
+                        type="text"
+                        id="sector"
+                        className={`form-control ${errors.sector ? "is-invalid" : ""
+                          }`}
+                      />
+                      {errors.title && (
+                        <p className="invalid-feedback">
+                          {errors.sector.message}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="mb-3">
+                      <label htmlFor="location" className="form-label">
+                      Location
+                      </label>
+                      <input
+                        placeholder="Location"
+                        {...register("location")}
+                        type="text"
+                        id="location"
+                        className={`form-control ${errors.location ? "is-invalid" : ""
+                          }`}
+                      />
+                      {errors.title && (
+                        <p className="invalid-feedback">
+                          {errors.location.message}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="mb-3">
                       <label htmlFor="short_desc" className="form-label">
                         Short Description
                       </label>
@@ -198,25 +273,40 @@ export const Create = () => {
                       />
                     </div>
 
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                       <label htmlFor="content" className="form-label">
                         Image
                       </label>
                       <br />
-                      <input onChange={handleFile} className="form-control mb-3" type="file" />
+                      <input onChange={handleFile} className="form-control mb-2" type="file" />
+                        {
+                       project.image && <img  width={150} height={180} src={fileUrl + 'uploads/projects/small/'+ project.image } alt="" />
+                       }
+                    </div> */}
 
-                      {/* Show the preview of the selected image */}
-                      {previewImage && (
-                        <img
-                          width={150}
-                          height={180}
-                          src={previewImage}
-                          alt="Selected Preview"
-                          className="img-thumbnail"
-                        />
-                      )}
-                    </div>
-
+                       <div className="mb-3">
+                                          <label htmlFor="image" className="form-label">
+                                            Image
+                                          </label>
+                                          <br />
+                                          <input
+                                            onChange={handleFile}
+                                            className="form-control mb-3"
+                                            type="file"
+                                          />
+                    
+                                          {/* Show preview if a new image is selected, otherwise show existing image */}
+                    
+                                          {previewImage ? (
+                                            <img
+                                              width={150}
+                                              height={180}
+                                              src={previewImage}
+                                              alt="New Preview"
+                                              className="img-thumbnail"
+                                            />
+                                          ) : project.image && <img  width={150} height={180} src={fileUrl + 'uploads/projects/small/'+ project.image } alt="" />}
+                                        </div>
 
                     <div className="mb-3">
                       <label htmlFor="status" className="form-label">
@@ -239,6 +329,7 @@ export const Create = () => {
                         </p>
                       )}
                     </div>
+
                     <button disabled={isDisable} type="submit" className="btn btn-primary">
                       Submit
                     </button>
@@ -254,4 +345,4 @@ export const Create = () => {
   );
 };
 
-export default Create;
+export default Update;

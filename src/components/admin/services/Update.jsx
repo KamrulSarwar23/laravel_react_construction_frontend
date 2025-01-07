@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import JoditEditor from "jodit-react";
 
 export const Update = () => {
-  
+
   const navigate = useNavigate();
   const editor = useRef(null);
   const [content, setContent] = useState('');
@@ -17,7 +17,7 @@ export const Update = () => {
   const [isDisable, setIsDisable] = useState(false);
   const [imageId, setImageId] = useState(null);
   const params = useParams();
-
+  const [previewImage, setPreviewImage] = useState(null);
   const config = useMemo(
     () => ({
       readonly: false,
@@ -40,7 +40,7 @@ export const Update = () => {
           Authorization: `Bearer ${token()}`,
         },
       });
-  
+
       const result = await res.json();
       setContent(result.data.content);
       setService(result.data);
@@ -54,7 +54,7 @@ export const Update = () => {
   });
 
   const onSubmit = async (data) => {
-    const newData = { ...data, "content": content, "imageId" : imageId};
+    const newData = { ...data, "content": content, "imageId": imageId };
     const res = await fetch(apiUrl + "services/" + params.id, {
       method: "PUT",
       headers: {
@@ -76,27 +76,45 @@ export const Update = () => {
   };
 
   const handleFile = async (e) => {
-      const formData = new FormData();
-      const file = e.target.files[0];
-      formData.append("image", file);
+    const file = e.target.files[0];
 
-      await fetch(apiUrl + "temp-images", {
+    if (file) {
+      // Generate a preview URL for the selected file
+      const previewUrl = URL.createObjectURL(file);
+      setPreviewImage(previewUrl);
+    }
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    setIsDisable(true); // Disable the submit button during upload
+
+    try {
+      const response = await fetch(apiUrl + "temp-images", {
         method: "POST",
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token()}`,
         },
-        body: formData
-      }).then(response => response.json())
-        .then(result => {
-            if (result.status == false) {
-                toast.error(result.errors.image[0])
-            }else{
-                setImageId(result.data.id)
-                toast.success('Image Upload! Now You Can Update Service')
-            }
-        })
-  }
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.status === false) {
+        toast.error(result.errors.image[0]);
+        setPreviewImage(null); // Clear preview on error
+      } else {
+        setImageId(result.data.id);
+        toast.success("Image Uploaded! Now You Can Submit the Form");
+      }
+    } catch (error) {
+      toast.error("An error occurred while uploading the image.");
+      setPreviewImage(null); // Clear preview on error
+    } finally {
+      setIsDisable(false); // Re-enable the submit button after upload
+    }
+  };
 
   return (
     <div>
@@ -129,9 +147,8 @@ export const Update = () => {
                         })}
                         type="text"
                         id="title"
-                        className={`form-control ${
-                          errors.title ? "is-invalid" : ""
-                        }`}
+                        className={`form-control ${errors.title ? "is-invalid" : ""
+                          }`}
                       />
                       {errors.title && (
                         <p className="invalid-feedback">
@@ -151,9 +168,8 @@ export const Update = () => {
                         })}
                         type="text"
                         id="slug"
-                        className={`form-control ${
-                          errors.slug ? "is-invalid" : ""
-                        }`}
+                        className={`form-control ${errors.slug ? "is-invalid" : ""
+                          }`}
                       />
                       {errors.slug && (
                         <p className="invalid-feedback">
@@ -171,9 +187,8 @@ export const Update = () => {
                         {...register("short_desc", {
                           required: "The short description field is required",
                         })}
-                        className={`form-control ${
-                          errors.short_desc ? "is-invalid" : ""
-                        }`}
+                        className={`form-control ${errors.short_desc ? "is-invalid" : ""
+                          }`}
                         rows={5}
                         id="short_desc"
                       ></textarea>
@@ -197,7 +212,7 @@ export const Update = () => {
                     </div>
 
 
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                       <label htmlFor="content" className="form-label">
                         Image
                       </label>
@@ -208,6 +223,30 @@ export const Update = () => {
                         service.image && <img width={150} height={180} src={fileUrl + 'uploads/services/small/'+ service.image } alt="" />
                       }
 
+                    </div> */}
+
+                    <div className="mb-3">
+                      <label htmlFor="image" className="form-label">
+                        Image
+                      </label>
+                      <br />
+                      <input
+                        onChange={handleFile}
+                        className="form-control mb-3"
+                        type="file"
+                      />
+
+                      {/* Show preview if a new image is selected, otherwise show existing image */}
+
+                      {previewImage ? (
+                        <img
+                          width={150}
+                          height={180}
+                          src={previewImage}
+                          alt="New Preview"
+                          className="img-thumbnail"
+                        />
+                      ) : service.image && <img width={150} height={180} src={fileUrl + 'uploads/services/small/' + service.image} alt="" />}
                     </div>
 
 
@@ -220,9 +259,8 @@ export const Update = () => {
                           required: "The status field is required",
                         })}
                         id="status"
-                        className={`form-control ${
-                          errors.status ? "is-invalid" : ""
-                        }`}>
+                        className={`form-control ${errors.status ? "is-invalid" : ""
+                          }`}>
                         <option value="1">Active</option>
                         <option value="0">Inactive</option>
                       </select>

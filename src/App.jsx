@@ -13,17 +13,21 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./assets/css/style.scss";
 import RequireAuth from "./components/common/requireAuth";
-import  Show from "./components/admin/services/Show";
-import  Create from "./components/admin/services/Create";
-import Update from "./components/admin/services/Update";
 
+import ServiceShow from "./components/admin/services/Show";
+import ServiceCreate from "./components/admin/services/Create";
+import ServiceUpdate from "./components/admin/services/Update";
+
+import ProjectShow from "./components/admin/projects/Show";
+import ProjectCreate from "./components/admin/projects/Create";
+import ProjectUpdate from "./components/admin/projects/Update";
 
 function App() {
   return (
     <>
       <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Routes>
-          
+
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/services" element={<Service />} />
@@ -45,28 +49,55 @@ function App() {
             path="/admin/services"
             element={
               <RequireAuth>
-                <Show />
-              </RequireAuth>
-            }
-          />
-
-        <Route
-            path="/admin/services/create"
-            element={
-              <RequireAuth>
-                <Create />
+                <ServiceShow />
               </RequireAuth>
             }
           />
 
           <Route
-              path="/admin/services/edit/:id"
-              element={
-                <RequireAuth>
-                  <Update />
-                </RequireAuth>
-              }
-            />
+            path="/admin/services/create"
+            element={
+              <RequireAuth>
+                <ServiceCreate />
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path="/admin/services/edit/:id"
+            element={
+              <RequireAuth>
+                <ServiceUpdate />
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path="/admin/projects"
+            element={
+              <RequireAuth>
+                <ProjectShow />
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path="/admin/projects/create"
+            element={
+              <RequireAuth>
+                <ProjectCreate />
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path="/admin/projects/edit/:id"
+            element={
+              <RequireAuth>
+                <ProjectUpdate />
+              </RequireAuth>
+            }
+          />
 
 
         </Routes>
