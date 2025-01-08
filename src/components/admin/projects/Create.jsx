@@ -165,14 +165,19 @@ export const Create = () => {
                                             <label htmlFor="construction_type" className="form-label">
                                                 Construction Type
                                             </label>
-                                            <input
-                                                placeholder=" Construction Type"
-                                                {...register("construction_type")}
-                                                type="text"
-                                                id="construction_type"
-                                                className={`form-control ${errors.construction_type ? "is-invalid" : ""
-                                                    }`}
-                                            />
+
+                                            <select name="" id="construction_type" className="form-control" 
+                                             {
+                                                ...register("construction_type")
+                                                }>
+                                           
+                                           <option value="">Select Construction Type</option>
+                                            <option value="Residential">Residential Construction</option>
+                                            <option value="Commercial">Commercial Construction</option>
+                                            <option value="Industrial">Industrial Construction</option>
+                                            <option value="Infrastracture">Infrastracture Construction</option>
+                                            </select>
+                      
                                             {errors.construction_type && (
                                                 <p className="invalid-feedback">
                                                     {errors.construction_type.message}
@@ -181,23 +186,24 @@ export const Create = () => {
                                         </div>
 
                                         <div className="mb-3">
-                                            <label htmlFor="sector" className="form-label">
+                                            <label htmlFor="Sector" className="form-label">
                                                 Sector
                                             </label>
-                                            <input
-                                                placeholder="Sector"
-                                                {...register("sector")}
-                                                type="text"
-                                                id="sector"
-                                                className={`form-control ${errors.sector ? "is-invalid" : ""
-                                                    }`}
-                                            />
-                                            {errors.title && (
-                                                <p className="invalid-feedback">
-                                                    {errors.sector.message}
-                                                </p>
-                                            )}
+
+                                            <select name="" id="sector" className="form-control" 
+                                             {
+                                                ...register("sector")
+                                                }>
+                                           
+                                            <option value="">Select Sector</option>
+                                            <option value="Health">Health</option>
+                                            <option value="Education">Education</option>
+                                            <option value="Corporate">Corporate</option>
+                                      
+                                            </select>
+                      
                                         </div>
+
 
                                         <div className="mb-3">
                                             <label htmlFor="location" className="form-label">

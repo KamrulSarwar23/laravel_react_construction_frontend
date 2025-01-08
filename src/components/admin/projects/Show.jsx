@@ -4,7 +4,7 @@ import Footer from "../../common/Footer";
 import SideBar from "../../common/SideBar";
 import { apiUrl, token } from "../../common/http";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 export const Show = () => {
     
@@ -39,38 +39,49 @@ export const Show = () => {
     }
   };
 
-  const deleteService = async (id) => {
-    if (confirm("Are You Sure?")) {
-      const authToken = token();
-      if (!authToken) {
-        toast.error("Authorization token missing.");
-        return;
-      }
 
-      try {
-        const res = await fetch(`${apiUrl}projects/${id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${authToken}`,
-          },
-        });
-
-        const result = await res.json();
-
-        if (result.status === true) {
-            setProjects(projects.filter((project) => project.id !== id));
-          toast.success(result.message);
-        } else {
-          toast.error(result.message);
+  const deleteProject = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const authToken = token();
+        if (!authToken) {
+          Swal.fire("Error", "Authorization token missing.", "error");
+          return;
         }
-      } catch (error) {
-        toast.error("Failed to delete the service. Please try again.");
+  
+        try {
+          const res = await fetch(`${apiUrl}projects/${id}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: `Bearer ${authToken}`,
+            },
+          });
+  
+          const result = await res.json();
+  
+          if (result.status === true) {
+            setProjects(projects.filter((project) => project.id !== id));
+            Swal.fire("Deleted!", result.message, "success");
+          } else {
+            Swal.fire("Error", result.message, "error");
+          }
+        } catch (error) {
+          Swal.fire("Error", "Failed to delete the service. Please try again.", "error");
+        }
       }
-    }
+    });
   };
-
+  
 
   useEffect(() => {
     fetchprojects();
@@ -131,7 +142,7 @@ export const Show = () => {
                                 Edit
                               </Link>
                               <Link
-                                onClick={() => deleteService(project.id)}
+                                onClick={() => deleteProject(project.id)}
                                 href="#"
                                 className="btn btn-sm btn-danger">
                                 Delete

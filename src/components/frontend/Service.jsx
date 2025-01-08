@@ -51,7 +51,7 @@ const About = () => {
               {
                 services && services.map(service => {
                 return  (
-                    <div className="col-md-4 col-lg-3">
+                    <div key={service.id} className="col-md-4 col-lg-3">
                     <div className="item mb-3">
                       <div className="service-image">
                         <img src={fileUrl + 'uploads/services/small/' + service.image} className="w-100" alt="" />

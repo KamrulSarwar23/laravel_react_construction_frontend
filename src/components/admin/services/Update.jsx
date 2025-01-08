@@ -130,7 +130,7 @@ export const Update = () => {
               <div className="card shadow border-0">
                 <div className="card-body">
                   <div className="d-flex justify-content-between">
-                    <h4 className="h5">Create Service</h4>
+                    <h4 className="h5">Update Service</h4>
                   </div>
 
                   <hr />

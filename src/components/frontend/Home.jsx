@@ -15,11 +15,6 @@ import Service2 from "../../assets/images/construction2.jpg";
 import Service3 from "../../assets/images/construction3.jpg";
 import Service4 from "../../assets/images/construction4.jpg";
 import project1 from "../../assets/images/construction5.jpg";
-import project2 from "../../assets/images/construction6.jpg";
-import project3 from "../../assets/images/construction7.jpg";
-import project4 from "../../assets/images/construction8.jpg";
-
-// import blogimg from "../../assets/images/construction8.jpg";
 
 import Icon1 from "../../assets/images/icon-1.svg";
 import Icon2 from "../../assets/images/icon-2.svg";
@@ -29,19 +24,30 @@ import { apiUrl, fileUrl } from "../common/http";
 const Home = () => {
 
   const [services, setServices] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   const LatestServices = async () => {
-       const res = await fetch(apiUrl + "latest-services", {
-            method: "GET"
-          });
+    const res = await fetch(apiUrl + "latest-services", {
+      method: "GET"
+    });
 
-          const result = await res.json();
-          setServices(result.data);
+    const result = await res.json();
+    setServices(result.data);
   }
 
-   useEffect(() => {
+  const LatestProjects = async () => {
+    const res = await fetch(apiUrl + "latest-projects", {
+      method: "GET"
+    });
+
+    const result = await res.json();
+    setProjects(result.data);
+  }
+
+  useEffect(() => {
     LatestServices();
-   }, []);
+    LatestProjects();
+  }, []);
 
   return (
     <>
@@ -75,7 +81,7 @@ const Home = () => {
         </section>
 
         {/* About Us Section */}
-          <Aboutus/>
+        <Aboutus />
 
         {/* Services Section */}
 
@@ -94,32 +100,32 @@ const Home = () => {
 
               {
                 services && services.map(service => {
-                 return (
-                    <div className="col-md-4 col-lg-3">
-                    <div className="item mb-3">
-                      <div className="service-image">
-                        <img src={fileUrl + 'uploads/services/small/'+ service.image } className="w-100" alt="" />
-                      </div>
-                      <div className="service-body">
-                        <div className="service-title">
-                          <h3>{service.title}</h3>
+                  return (
+                    <div key={service.id} className="col-md-4 col-lg-3">
+                      <div className="item mb-3">
+                        <div className="service-image">
+                          <img src={fileUrl + 'uploads/services/small/' + service.image} className="w-100" alt="" />
                         </div>
-    
-                        <div className="service-content">
-                          <p>
-                          {service.short_desc}
-                          </p>
+                        <div className="service-body">
+                          <div className="service-title">
+                            <h3>{service.title}</h3>
+                          </div>
+
+                          <div className="service-content">
+                            <p>
+                              {service.short_desc}
+                            </p>
+                          </div>
+                          <a href="#" className="btn btn-primary">
+                            Read More
+                          </a>
                         </div>
-                        <a href="#" className="btn btn-primary">
-                          Read More
-                        </a>
                       </div>
                     </div>
-                  </div>
                   )
                 })
               }
-         
+
 
 
             </div>
@@ -209,93 +215,37 @@ const Home = () => {
             </div>
 
             <div className="row mt-5">
-              <div className="col-md-4 col-lg-3">
-                <div className="item mb-3">
-                  <div className="service-image">
-                    <img src={project1} className="w-100" alt="" />
-                  </div>
-                  <div className="service-body">
-                    <div className="service-title">
-                      <h3>Project One</h3>
-                    </div>
+              {projects && projects.map(project => {
 
-                    <div className="service-content">
-                      <p>
-                        orem ipsum, dolor sit amet consectetur adipisicing elit
-                      </p>
-                    </div>
-                    <a href="#" className="btn btn-primary">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
+                return (
+                  <div key={project.id} className="col-md-4 col-lg-3">
+                    <div className="item mb-3">
+                      <div className="service-image">
+                        <img src={fileUrl + 'uploads/projects/small/' + project.image} className="w-100" alt="" />
+                      </div>
+                      <div className="service-body">
+                        <div className="service-title">
+                          <h3>{project.title}</h3>
+                        </div>
 
-              <div className="col-md-4 col-lg-3">
-                <div className="item mb-3">
-                  <div className="service-image">
-                    <img src={project2} className="w-100" alt="" />
-                  </div>
-                  <div className="service-body">
-                    <div className="service-title">
-                      <h3>Project Two</h3>
+                        <div className="service-content">
+                          <p>
+                            {project.short_desc}
+                          </p>
+                        </div>
+                        <a href="#" className="btn btn-primary">
+                          Read More
+                        </a>
+                      </div>
                     </div>
+                  </div>
+                )
 
-                    <div className="service-content">
-                      <p>
-                        orem ipsum, dolor sit amet consectetur adipisicing elit
-                      </p>
-                    </div>
-                    <a href="#" className="btn btn-primary">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
+              })}
 
-              <div className="col-md-4 col-lg-3">
-                <div className="item mb-3">
-                  <div className="service-image">
-                    <img src={project3} className="w-100" alt="" />
-                  </div>
-                  <div className="service-body">
-                    <div className="service-title">
-                      <h3>Project Three</h3>
-                    </div>
 
-                    <div className="service-content">
-                      <p>
-                        orem ipsum, dolor sit amet consectetur adipisicing elit
-                      </p>
-                    </div>
-                    <a href="#" className="btn btn-primary">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
 
-              <div className="col-md-4 col-lg-3">
-                <div className="item mb-3">
-                  <div className="service-image">
-                    <img src={project4} className="w-100" alt="" />
-                  </div>
-                  <div className="service-body">
-                    <div className="service-title">
-                      <h3>Project Four</h3>
-                    </div>
 
-                    <div className="service-content">
-                      <p>
-                        orem ipsum, dolor sit amet consectetur adipisicing elit
-                      </p>
-                    </div>
-                    <a href="#" className="btn btn-primary">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -704,7 +654,7 @@ const Home = () => {
               <div className="col-md-4 col-lg-3">
                 <div className="card shadow border-0 mb-3">
                   <div className="card-img-top">
-                    <img src={Service1} alt="" className="w-100" height="250px"/>
+                    <img src={Service1} alt="" className="w-100" height="250px" />
                   </div>
 
                   <div className="card-body p-4">
@@ -723,7 +673,7 @@ const Home = () => {
               <div className="col-md-4 col-lg-3">
                 <div className="card shadow border-0 mb-3">
                   <div className="card-img-top">
-                    <img src={Service2} alt="" className="w-100" height="250px"/>
+                    <img src={Service2} alt="" className="w-100" height="250px" />
                   </div>
 
                   <div className="card-body p-4">
