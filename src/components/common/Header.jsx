@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, NavLink } from "react-router-dom";
+
 const Header = () => {
+
   return (
     <header>
       <div className="container py-3">
@@ -33,6 +35,7 @@ const Header = () => {
               <Nav.Link as={NavLink} to="/contact-us" className="nav-link">
                 Contact Us
               </Nav.Link>
+
             </Nav>
           </Navbar.Collapse>
         </Navbar>

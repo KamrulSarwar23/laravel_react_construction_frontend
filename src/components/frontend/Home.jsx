@@ -25,6 +25,7 @@ const Home = () => {
 
   const [services, setServices] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [articles, setArticles] = useState([]);
 
   const LatestServices = async () => {
     const res = await fetch(apiUrl + "latest-services", {
@@ -44,9 +45,19 @@ const Home = () => {
     setProjects(result.data);
   }
 
+  const LatestArticles = async () => {
+    const res = await fetch(apiUrl + "latest-articles", {
+      method: "GET"
+    });
+
+    const result = await res.json();
+    setArticles(result.data);
+  }
+
   useEffect(() => {
     LatestServices();
     LatestProjects();
+    LatestArticles();
   }, []);
 
   return (
@@ -651,84 +662,33 @@ const Home = () => {
             </div>
 
             <div className="row pt-4">
-              <div className="col-md-4 col-lg-3">
-                <div className="card shadow border-0 mb-3">
-                  <div className="card-img-top">
-                    <img src={Service1} alt="" className="w-100" height="250px" />
-                  </div>
-
-                  <div className="card-body p-4">
-                    <div className="mb-3">
-                      <a className="title" href="">
-                        Dummy Blog Title
-                      </a>
+                {
+                  articles && articles.map(artile => {
+                    return (
+                      <div className="col-md-4 col-lg-3">
+                      <div className="card shadow border-0 mb-3">
+                        <div className="card-img-top">
+                          <img src={fileUrl + 'uploads/articles/small/' + artile.image} alt="" className="w-100" height="250px" />
+                        </div>
+      
+                        <div className="card-body p-4">
+                          <div className="mb-3">
+                            <a className="title" href="">
+                              {artile.title}
+                            </a>
+                          </div>
+      
+                          <a className="btn btn-primary" href="">
+                            Read More
+                          </a>
+                        </div>
+                      </div>
                     </div>
+                    )
+                  })
+                }
+        
 
-                    <a className="btn btn-primary" href="">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 col-lg-3">
-                <div className="card shadow border-0 mb-3">
-                  <div className="card-img-top">
-                    <img src={Service2} alt="" className="w-100" height="250px" />
-                  </div>
-
-                  <div className="card-body p-4">
-                    <div className="mb-3">
-                      <a className="title" href="">
-                        Dummy Blog Title
-                      </a>
-                    </div>
-
-                    <a className="btn btn-primary" href="">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-md-4 col-lg-3">
-                <div className="card shadow border-0 mb-3">
-                  <div className="card-img-top">
-                    <img src={Service3} alt="" className="w-100" height="250px" />
-                  </div>
-
-                  <div className="card-body p-4">
-                    <div className="mb-3">
-                      <a className="title" href="">
-                        Dummy Blog Title
-                      </a>
-                    </div>
-
-                    <a className="btn btn-primary" href="">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-md-4 col-lg-3">
-                <div className="card shadow border-0 mb-3">
-                  <div className="card-img-top">
-                    <img src={Service4} alt="" className="w-100" height="250px" />
-                  </div>
-
-                  <div className="card-body p-4">
-                    <div className="mb-3">
-                      <a className="title" href="">
-                        Dummy Blog Title
-                      </a>
-                    </div>
-
-                    <a className="btn btn-primary" href="">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
 
             </div>
           </div>

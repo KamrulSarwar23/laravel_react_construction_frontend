@@ -42,8 +42,8 @@ const SideBar = () => {
             </li>
             <li>
                 <Link
-                    to="#"
-                    className={isActive("#") ? "active" : ""}
+                    to="/admin/articles"
+                    className={isActive("/admin/articles") ? "active" : ""}
                 >
                     Articles
                 </Link>

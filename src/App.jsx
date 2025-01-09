@@ -22,6 +22,10 @@ import ProjectShow from "./components/admin/projects/Show";
 import ProjectCreate from "./components/admin/projects/Create";
 import ProjectUpdate from "./components/admin/projects/Update";
 
+import ArticleShow from "./components/admin/articles/Show";
+import ArticleCreate from "./components/admin/articles/Create";
+import ArticleUpdate from "./components/admin/articles/Update";
+
 function App() {
   return (
     <>
@@ -95,6 +99,34 @@ function App() {
             element={
               <RequireAuth>
                 <ProjectUpdate />
+              </RequireAuth>
+            }
+          />
+
+
+          <Route
+            path="/admin/articles"
+            element={
+              <RequireAuth>
+                <ArticleShow />
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path="/admin/articles/create"
+            element={
+              <RequireAuth>
+                <ArticleCreate />
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path="/admin/articles/edit/:id"
+            element={
+              <RequireAuth>
+                <ArticleUpdate />
               </RequireAuth>
             }
           />
