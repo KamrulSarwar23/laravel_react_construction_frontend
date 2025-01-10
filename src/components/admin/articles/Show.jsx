@@ -40,7 +40,7 @@ export const Show = () => {
   };
 
 
-  const deleteProject = async (id) => {
+  const deleteArticle = async (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -101,7 +101,7 @@ export const Show = () => {
               <div className="card shadow border-0">
                 <div className="card-body">
                   <div className="d-flex justify-content-between">
-                    <h4 className="h5">Projects</h4>
+                    <h4 className="h5">Articles</h4>
                     <Link
                       className="btn btn-primary"
                       to={"/admin/articles/create"}
@@ -142,7 +142,7 @@ export const Show = () => {
                                 Edit
                               </Link>
                               <Link
-                                onClick={() => deleteProject(article.id)}
+                                onClick={() => deleteArticle(article.id)}
                                 href="#"
                                 className="btn btn-sm btn-danger">
                                 Delete
@@ -153,7 +153,7 @@ export const Show = () => {
                         ))
                       ) : (
                         <tr>
-                          <td colSpan="5">No Projects available.</td>
+                          <td colSpan="5">No Articles Available.</td>
                         </tr>
                       )}
                     </tbody>

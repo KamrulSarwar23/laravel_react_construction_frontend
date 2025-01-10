@@ -1,63 +1,32 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState } from "react";
 import Header from "../../common/Header";
 import Footer from "../../common/Footer";
 import SideBar from "../../common/SideBar";
 import { useForm } from "react-hook-form";
-import { apiUrl, token, fileUrl } from "../../common/http";
-import { useNavigate, useParams } from "react-router-dom";
+import { apiUrl, token } from "../../common/http";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import JoditEditor from "jodit-react";
 
-export const Update = () => {
+
+export const Create = () => {
 
   const navigate = useNavigate();
-  const editor = useRef(null);
-  const [content, setContent] = useState('');
-  const [service, setService] = useState('');
+
   const [isDisable, setIsDisable] = useState(false);
   const [imageId, setImageId] = useState(null);
-  const params = useParams();
   const [previewImage, setPreviewImage] = useState(null);
-  
-  const config = useMemo(
-    () => ({
-      readonly: false,
-      placeholder: "Enter content here...",
-    }),
-    []
-  );
+
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues: async () => {
-      const res = await fetch(apiUrl + 'services/' + params.id, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token()}`,
-        },
-      });
-
-      const result = await res.json();
-      setContent(result.data.content);
-      setService(result.data);
-      return {
-        title: result.data.title,
-        slug: result.data.slug,
-        short_desc: result.data.short_desc,
-        status: result.data.status,
-      }
-    }
-  });
+  } = useForm();
 
   const onSubmit = async (data) => {
-    const newData = { ...data, "content": content, "imageId": imageId };
-    const res = await fetch(apiUrl + "services/" + params.id, {
-      method: "PUT",
+    const newData = { ...data, "imageId": imageId }; // Add content to the data object
+    const res = await fetch(apiUrl + "teams", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -70,11 +39,17 @@ export const Update = () => {
 
     if (result.status) {
       toast.success(result.message);
-      navigate("/admin/services");
+      navigate("/admin/teams");
     } else {
+
+      if (result.status == false) {
+        toast.error(result.errors.slug[0])
+      }
       toast.error(result.message);
     }
   };
+
+  // State to store the selected image preview
 
   const handleFile = async (e) => {
     const file = e.target.files[0];
@@ -110,12 +85,14 @@ export const Update = () => {
         toast.success("Image Uploaded! Now You Can Submit the Form");
       }
     } catch (error) {
-      toast.error("An error occurred while uploading the image.");
+      toast.error("An error occurred while uploading the image." , error);
       setPreviewImage(null); // Clear preview on error
     } finally {
       setIsDisable(false); // Re-enable the submit button after upload
     }
   };
+
+
 
   return (
     <div>
@@ -131,109 +108,91 @@ export const Update = () => {
               <div className="card shadow border-0">
                 <div className="card-body">
                   <div className="d-flex justify-content-between">
-                    <h4 className="h5">Edit Service</h4>
+                    <h4 className="h5">Create Team Member</h4>
                   </div>
 
                   <hr />
 
                   <form onSubmit={handleSubmit(onSubmit)}>
+
                     <div className="mb-3">
-                      <label htmlFor="title" className="form-label">
-                        Title
+                      <label htmlFor="name" className="form-label">
+                      Name
                       </label>
                       <input
-                        placeholder="Title"
-                        {...register("title", {
-                          required: "The title field is required",
+                        placeholder="Name"
+                        {...register("name", {
+                          required: "The name field is required",
                         })}
                         type="text"
                         id="title"
-                        className={`form-control ${errors.title ? "is-invalid" : ""
+                        className={`form-control ${errors.name ? "is-invalid" : ""
                           }`}
                       />
-                      {errors.title && (
+                      {errors.name && (
                         <p className="invalid-feedback">
-                          {errors.title.message}
+                          {errors.name.message}
                         </p>
                       )}
                     </div>
 
                     <div className="mb-3">
-                      <label htmlFor="slug" className="form-label">
-                        Slug
+                      <label htmlFor="job_title" className="form-label">
+                      Job Title
                       </label>
                       <input
-                        placeholder="Slug"
-                        {...register("slug", {
-                          required: "The slug field is required",
+                        placeholder="Job Title"
+                        {...register("job_title", {
+                          required: "The job title field is required",
                         })}
                         type="text"
-                        id="slug"
-                        className={`form-control ${errors.slug ? "is-invalid" : ""
+                        id="job_title"
+                        className={`form-control ${errors.job_title ? "is-invalid" : ""
                           }`}
                       />
-                      {errors.slug && (
+                      {errors.job_title && (
                         <p className="invalid-feedback">
-                          {errors.slug.message}
+                          {errors.job_title.message}
                         </p>
                       )}
                     </div>
 
                     <div className="mb-3">
-                      <label htmlFor="short_desc" className="form-label">
-                        Short Description
+                      <label htmlFor="linkedin_url" className="form-label">
+                      Linkedin Url
                       </label>
-                      <textarea
-                        placeholder="Short Description"
-                        {...register("short_desc", {
-                          required: "The short description field is required",
-                        })}
-                        className={`form-control ${errors.short_desc ? "is-invalid" : ""
+                      <input
+                        placeholder="Linkedin Url"
+                        {...register("linkedin_url")}
+                        type="text"
+                        id="linkedin_url"
+                        className={`form-control ${errors.linkedin_url ? "is-invalid" : ""
                           }`}
-                        rows={5}
-                        id="short_desc"
-                      ></textarea>
-                      {errors.short_desc && (
+                      />
+                      {errors.linkedin_url && (
                         <p className="invalid-feedback">
-                          {errors.short_desc.message}
+                          {errors.linkedin_url.message}
                         </p>
                       )}
                     </div>
 
                     <div className="mb-3">
                       <label htmlFor="content" className="form-label">
-                        Content
-                      </label>
-                      <JoditEditor
-                        ref={editor}
-                        value={content}
-                        config={config}
-                        onChange={(newContent) => setContent(newContent)}
-                      />
-                    </div>
-
-                    <div className="mb-3">
-                      <label htmlFor="image" className="form-label">
                         Image
                       </label>
                       <br />
-                      <input
-                        onChange={handleFile}
-                        className="form-control mb-3"
-                        type="file"
-                      />
+                      <input onChange={handleFile} className="form-control mb-3" type="file" />
 
-                      {/* Show preview if a new image is selected, otherwise show existing image */}
-
-                      {previewImage ? (
+                      {/* Show the preview of the selected image */}
+                      {previewImage && (
                         <img
                           width={150}
                           height={180}
                           src={previewImage}
-                          alt="New Preview"
+                          alt="Selected Preview"
                           className="img-thumbnail"
                         />
-                      ) : service.image && <img width={150} height={180} src={fileUrl + 'uploads/services/small/' + service.image} alt="" />}
+                      )}
                     </div>
 
 
@@ -247,7 +206,8 @@ export const Update = () => {
                         })}
                         id="status"
                         className={`form-control ${errors.status ? "is-invalid" : ""
-                          }`}>
+                          }`}
+                      >
                         <option value="1">Active</option>
                         <option value="0">Inactive</option>
                       </select>
@@ -258,7 +218,7 @@ export const Update = () => {
                       )}
                     </div>
                     <button disabled={isDisable} type="submit" className="btn btn-primary">
-                      Update
+                      Submit
                     </button>
                   </form>
                 </div>
@@ -272,4 +232,4 @@ export const Update = () => {
   );
 };
 
-export default Update;
+export default Create;

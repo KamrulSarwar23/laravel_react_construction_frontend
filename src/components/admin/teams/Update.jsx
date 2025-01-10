@@ -1,30 +1,22 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState } from "react";
 import Header from "../../common/Header";
 import Footer from "../../common/Footer";
 import SideBar from "../../common/SideBar";
 import { useForm } from "react-hook-form";
-import { apiUrl, token, fileUrl } from "../../common/http";
+import { apiUrl, fileUrl, token } from "../../common/http";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import JoditEditor from "jodit-react";
+
 
 export const Update = () => {
 
     const navigate = useNavigate();
-    const editor = useRef(null);
-    const [content, setContent] = useState('');
-    const [article, setArticle] = useState('');
+
     const [isDisable, setIsDisable] = useState(false);
     const [imageId, setImageId] = useState(null);
-    const params = useParams();
     const [previewImage, setPreviewImage] = useState(null);
-    const config = useMemo(
-        () => ({
-            readonly: false,
-            placeholder: "Enter content here...",
-        }),
-        []
-    );
+    const [teamMember, setTeamMember] = useState('');
+    const params = useParams();
 
     const {
         register,
@@ -32,7 +24,7 @@ export const Update = () => {
         formState: { errors },
     } = useForm({
         defaultValues: async () => {
-            const res = await fetch(apiUrl + 'articles/' + params.id, {
+            const res = await fetch(apiUrl + 'teams/' + params.id, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -42,22 +34,20 @@ export const Update = () => {
             });
 
             const result = await res.json();
-            setContent(result.data.content);
-            setArticle(result.data);
+            setTeamMember(result.data);
 
             return {
-                title: result.data.title,
-                slug: result.data.slug,
-                author: result.data.author,
-                content: result.data.content,
+                name: result.data.name,
+                job_title: result.data.job_title,
+                linkedin_url: result.data.linkedin_url,
                 status: result.data.status,
             }
         }
     });
 
     const onSubmit = async (data) => {
-        const newData = { ...data, "content": content, "imageId": imageId };
-        const res = await fetch(apiUrl + "articles/" + params.id, {
+        const newData = { ...data, "imageId": imageId }; // Add content to the data object
+        const res = await fetch(apiUrl + "teams/" + params.id, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -71,11 +61,17 @@ export const Update = () => {
 
         if (result.status) {
             toast.success(result.message);
-            navigate("/admin/articles");
+            navigate("/admin/teams");
         } else {
+
+            if (result.status == false) {
+                toast.error(result.errors.slug[0])
+            }
             toast.error(result.message);
         }
     };
+
+    // State to store the selected image preview
 
     const handleFile = async (e) => {
         const file = e.target.files[0];
@@ -111,12 +107,13 @@ export const Update = () => {
                 toast.success("Image Uploaded! Now You Can Submit the Form");
             }
         } catch (error) {
-            toast.error("An error occurred while uploading the image.");
+            toast.error("An error occurred while uploading the image.", error);
             setPreviewImage(null); // Clear preview on error
         } finally {
             setIsDisable(false); // Re-enable the submit button after upload
         }
     };
+
 
     return (
         <div>
@@ -132,84 +129,75 @@ export const Update = () => {
                             <div className="card shadow border-0">
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between">
-                                        <h4 className="h5">Edit Article</h4>
+                                        <h4 className="h5">Edit Team Member</h4>
                                     </div>
 
                                     <hr />
 
                                     <form onSubmit={handleSubmit(onSubmit)}>
+
+
                                         <div className="mb-3">
-                                            <label htmlFor="title" className="form-label">
-                                                Title
+                                            <label htmlFor="name" className="form-label">
+                                                Name
                                             </label>
                                             <input
-                                                placeholder="Title"
-                                                {...register("title", {
-                                                    required: "The title field is required",
+                                                placeholder="Name"
+                                                {...register("name", {
+                                                    required: "The name field is required",
                                                 })}
                                                 type="text"
                                                 id="title"
-                                                className={`form-control ${errors.title ? "is-invalid" : ""
+                                                className={`form-control ${errors.name ? "is-invalid" : ""
                                                     }`}
                                             />
-                                            {errors.title && (
+                                            {errors.name && (
                                                 <p className="invalid-feedback">
-                                                    {errors.title.message}
+                                                    {errors.name.message}
                                                 </p>
                                             )}
                                         </div>
 
                                         <div className="mb-3">
-                                            <label htmlFor="slug" className="form-label">
-                                                Slug
+                                            <label htmlFor="job_title" className="form-label">
+                                                Job Title
                                             </label>
                                             <input
-                                                placeholder="Slug"
-                                                {...register("slug", {
-                                                    required: "The slug field is required",
+                                                placeholder="Job Title"
+                                                {...register("job_title", {
+                                                    required: "The job title field is required",
                                                 })}
                                                 type="text"
-                                                id="slug"
-                                                className={`form-control ${errors.slug ? "is-invalid" : ""
+                                                id="job_title"
+                                                className={`form-control ${errors.job_title ? "is-invalid" : ""
                                                     }`}
                                             />
-                                            {errors.slug && (
+                                            {errors.job_title && (
                                                 <p className="invalid-feedback">
-                                                    {errors.slug.message}
+                                                    {errors.job_title.message}
                                                 </p>
                                             )}
                                         </div>
 
                                         <div className="mb-3">
-                                            <label htmlFor="author" className="form-label">
-                                                Author
+                                            <label htmlFor="linkedin_url" className="form-label">
+                                                Linkedin Url
                                             </label>
                                             <input
-                                                placeholder="Author"
-                                                {...register("author")}
+                                                placeholder="Linkedin Url"
+                                                {...register("linkedin_url")}
                                                 type="text"
-                                                id="author"
-                                                className={`form-control ${errors.author ? "is-invalid" : ""
+                                                id="linkedin_url"
+                                                className={`form-control ${errors.linkedin_url ? "is-invalid" : ""
                                                     }`}
                                             />
-                                            {errors.author && (
+                                            {errors.linkedin_url && (
                                                 <p className="invalid-feedback">
-                                                    {errors.author.message}
+                                                    {errors.linkedin_url.message}
                                                 </p>
                                             )}
                                         </div>
 
-                                        <div className="mb-3">
-                                            <label htmlFor="content" className="form-label">
-                                                Content
-                                            </label>
-                                            <JoditEditor
-                                                ref={editor}
-                                                value={content}
-                                                config={config}
-                                                onChange={(newContent) => setContent(newContent)}
-                                            />
-                                        </div>
 
                                         <div className="mb-3">
                                             <label htmlFor="image" className="form-label">
@@ -232,9 +220,8 @@ export const Update = () => {
                                                     alt="New Preview"
                                                     className="img-thumbnail"
                                                 />
-                                            ) : article.image && <img width={150} height={180} src={fileUrl + 'uploads/articles/small/' + article.image} alt="" />}
+                                            ) : teamMember.image && <img width={150} height={180} src={fileUrl + 'uploads/teams/' + teamMember.image} alt="" />}
                                         </div>
-
 
                                         <div className="mb-3">
                                             <label htmlFor="status" className="form-label">

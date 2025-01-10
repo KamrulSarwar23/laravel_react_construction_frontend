@@ -48,6 +48,25 @@ const SideBar = () => {
                     Articles
                 </Link>
             </li>
+
+            <li>
+                <Link
+                    to="/admin/testimonials"
+                    className={isActive("/admin/testimonials") ? "active" : ""}
+                >
+                    Testimonials
+                </Link>
+            </li>
+
+            <li>
+                <Link
+                    to="/admin/teams"
+                    className={isActive("/admin/teams") ? "active" : ""}
+                >
+                    Team Members
+                </Link>
+            </li>
+
             <li>
                 <button onClick={logout} className="btn btn-primary mt-3">
                     Logout

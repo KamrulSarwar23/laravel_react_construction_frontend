@@ -10,11 +10,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import AvatarImg from "../../assets/images/author-2.jpg";
-import Service1 from "../../assets/images/construction1.jpg";
-import Service2 from "../../assets/images/construction2.jpg";
-import Service3 from "../../assets/images/construction3.jpg";
-import Service4 from "../../assets/images/construction4.jpg";
-import project1 from "../../assets/images/construction5.jpg";
 
 import Icon1 from "../../assets/images/icon-1.svg";
 import Icon2 from "../../assets/images/icon-2.svg";
@@ -26,6 +21,8 @@ const Home = () => {
   const [services, setServices] = useState([]);
   const [projects, setProjects] = useState([]);
   const [articles, setArticles] = useState([]);
+  const [testimonials, setTestimonials] = useState([]);
+
 
   const LatestServices = async () => {
     const res = await fetch(apiUrl + "latest-services", {
@@ -54,10 +51,20 @@ const Home = () => {
     setArticles(result.data);
   }
 
+  const AllTestimonials = async () => {
+    const res = await fetch(apiUrl + "all-testimonials", {
+      method: "GET"
+    });
+
+    const result = await res.json();
+    setTestimonials(result.data);
+  }
+
   useEffect(() => {
     LatestServices();
     LatestProjects();
     LatestArticles();
+    AllTestimonials();
   }, []);
 
   return (
@@ -285,365 +292,99 @@ const Home = () => {
                 }}
                 pagination={{ clickable: true }}
               >
-                <SwiperSlide>
-                  <div className="card shadow border-0">
-                    <div className="card-body p-5">
-                      <div className="rating">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-                      </div>
-
-                      <div className="content pt-3">
-                        <p>
-                          Lorem ipsum dolor, sit amet consectetur adipisicing
-                          elit. Tempore fugit molestiae nostrum sit culpa illo
-                          ipsum necessitatibus praesentium perferendis veritatis
-                          quibusdam, nisi, tenetur aspernatur vero at dicta
-                          aliquid deleniti ea.
-                        </p>
-                      </div>
-                      <hr />
-
-                      <div className="d-flex meta">
-                        <div>
-                          <img
-                            src={AvatarImg}
-                            width={60}
-                            alt=""
-                            className="me-3"
-                          />
+                {testimonials && testimonials.map(testimonial => {
+                  return (
+                    <SwiperSlide key={testimonial.id}>
+                    <div className="card shadow border-0">
+                      <div className="card-body p-5">
+                        <div className="rating">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            fill="currentColor"
+                            className="bi bi-star-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                          </svg>
+  
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            fill="currentColor"
+                            className="bi bi-star-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                          </svg>
+  
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            fill="currentColor"
+                            className="bi bi-star-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                          </svg>
+  
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            fill="currentColor"
+                            className="bi bi-star-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                          </svg>
+  
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            fill="currentColor"
+                            className="bi bi-star-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                          </svg>
                         </div>
-
-                        <div>
-                          <div className="name">John Doe</div>
-                          <div>CEO</div>
+  
+                        <div className="content pt-3">
+                          <p>
+                          {testimonial.testimonial}
+                          </p>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-
-                <SwiperSlide>
-                  <div className="card shadow border-0">
-                    <div className="card-body p-5">
-                      <div className="rating">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-                      </div>
-
-                      <div className="content pt-3">
-                        <p>
-                          Lorem ipsum dolor, sit amet consectetur adipisicing
-                          elit. Tempore fugit molestiae nostrum sit culpa illo
-                          ipsum necessitatibus praesentium perferendis veritatis
-                          quibusdam, nisi, tenetur aspernatur vero at dicta
-                          aliquid deleniti ea.
-                        </p>
-                      </div>
-                      <hr />
-
-                      <div className="d-flex meta">
-                        <div>
-                          <img
-                            src={AvatarImg}
-                            width={60}
-                            alt=""
-                            className="me-3"
-                          />
-                        </div>
-
-                        <div>
-                          <div className="name">John Doe</div>
-                          <div>CEO</div>
+                        <hr />
+  
+                        <div className="d-flex meta">
+                          <div>
+                            <img
+                              src={fileUrl + 'uploads/testimonials/' + testimonial.image}
+                              width={60}
+                              alt=""
+                              className="me-3"
+                            />
+                          </div>
+  
+                          <div>
+                            <div className="name">{testimonial.citation}</div>
+                            <div>{testimonial.designation}</div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </SwiperSlide>
+                  </SwiperSlide>
+                  )
+                })}
+               
 
-                <SwiperSlide>
-                  <div className="card shadow border-0">
-                    <div className="card-body p-5">
-                      <div className="rating">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
+     
 
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-                      </div>
-
-                      <div className="content pt-3">
-                        <p>
-                          Lorem ipsum dolor, sit amet consectetur adipisicing
-                          elit. Tempore fugit molestiae nostrum sit culpa illo
-                          ipsum necessitatibus praesentium perferendis veritatis
-                          quibusdam, nisi, tenetur aspernatur vero at dicta
-                          aliquid deleniti ea.
-                        </p>
-                      </div>
-                      <hr />
-
-                      <div className="d-flex meta">
-                        <div>
-                          <img
-                            src={AvatarImg}
-                            width={60}
-                            alt=""
-                            className="me-3"
-                          />
-                        </div>
-
-                        <div>
-                          <div className="name">John Doe</div>
-                          <div>CEO</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-
-                <SwiperSlide>
-                  <div className="card shadow border-0">
-                    <div className="card-body p-5">
-                      <div className="rating">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-star-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
-                      </div>
-
-                      <div className="content pt-3">
-                        <p>
-                          Lorem ipsum dolor, sit amet consectetur adipisicing
-                          elit. Tempore fugit molestiae nostrum sit culpa illo
-                          ipsum necessitatibus praesentium perferendis veritatis
-                          quibusdam, nisi, tenetur aspernatur vero at dicta
-                          aliquid deleniti ea.
-                        </p>
-                      </div>
-                      <hr />
-
-                      <div className="d-flex meta">
-                        <div>
-                          <img
-                            src={AvatarImg}
-                            width={60}
-                            alt=""
-                            className="me-3"
-                          />
-                        </div>
-
-                        <div>
-                          <div className="name">John Doe</div>
-                          <div>CEO</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
               </Swiper>
             </div>
           </div>
@@ -662,32 +403,32 @@ const Home = () => {
             </div>
 
             <div className="row pt-4">
-                {
-                  articles && articles.map(artile => {
-                    return (
-                      <div className="col-md-4 col-lg-3">
+              {
+                articles && articles.map(artile => {
+                  return (
+                    <div key={artile.id} className="col-md-4 col-lg-3">
                       <div className="card shadow border-0 mb-3">
                         <div className="card-img-top">
                           <img src={fileUrl + 'uploads/articles/small/' + artile.image} alt="" className="w-100" height="250px" />
                         </div>
-      
+
                         <div className="card-body p-4">
                           <div className="mb-3">
                             <a className="title" href="">
                               {artile.title}
                             </a>
                           </div>
-      
+
                           <a className="btn btn-primary" href="">
                             Read More
                           </a>
                         </div>
                       </div>
                     </div>
-                    )
-                  })
-                }
-        
+                  )
+                })
+              }
+
 
 
             </div>

@@ -1,30 +1,22 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState } from "react";
 import Header from "../../common/Header";
 import Footer from "../../common/Footer";
 import SideBar from "../../common/SideBar";
 import { useForm } from "react-hook-form";
-import { apiUrl, token, fileUrl } from "../../common/http";
+import { apiUrl, fileUrl, token } from "../../common/http";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import JoditEditor from "jodit-react";
+
 
 export const Update = () => {
 
     const navigate = useNavigate();
-    const editor = useRef(null);
-    const [content, setContent] = useState('');
-    const [article, setArticle] = useState('');
+
     const [isDisable, setIsDisable] = useState(false);
     const [imageId, setImageId] = useState(null);
-    const params = useParams();
     const [previewImage, setPreviewImage] = useState(null);
-    const config = useMemo(
-        () => ({
-            readonly: false,
-            placeholder: "Enter content here...",
-        }),
-        []
-    );
+    const [testimonial, setTestimonial] = useState('');
+    const params = useParams();
 
     const {
         register,
@@ -32,7 +24,7 @@ export const Update = () => {
         formState: { errors },
     } = useForm({
         defaultValues: async () => {
-            const res = await fetch(apiUrl + 'articles/' + params.id, {
+            const res = await fetch(apiUrl + 'testimonials/' + params.id, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -42,22 +34,20 @@ export const Update = () => {
             });
 
             const result = await res.json();
-            setContent(result.data.content);
-            setArticle(result.data);
+            setTestimonial(result.data);
 
             return {
-                title: result.data.title,
-                slug: result.data.slug,
-                author: result.data.author,
-                content: result.data.content,
+                testimonial: result.data.testimonial,
+                citation: result.data.citation,
+                designation: result.data.designation,
                 status: result.data.status,
             }
         }
     });
 
     const onSubmit = async (data) => {
-        const newData = { ...data, "content": content, "imageId": imageId };
-        const res = await fetch(apiUrl + "articles/" + params.id, {
+        const newData = { ...data, "imageId": imageId }; // Add content to the data object
+        const res = await fetch(apiUrl + "testimonials/" + params.id, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -71,11 +61,17 @@ export const Update = () => {
 
         if (result.status) {
             toast.success(result.message);
-            navigate("/admin/articles");
+            navigate("/admin/testimonials");
         } else {
+
+            if (result.status == false) {
+                toast.error(result.errors.slug[0])
+            }
             toast.error(result.message);
         }
     };
+
+    // State to store the selected image preview
 
     const handleFile = async (e) => {
         const file = e.target.files[0];
@@ -111,12 +107,13 @@ export const Update = () => {
                 toast.success("Image Uploaded! Now You Can Submit the Form");
             }
         } catch (error) {
-            toast.error("An error occurred while uploading the image.");
+            toast.error("An error occurred while uploading the image.", error);
             setPreviewImage(null); // Clear preview on error
         } finally {
             setIsDisable(false); // Re-enable the submit button after upload
         }
     };
+
 
     return (
         <div>
@@ -132,84 +129,77 @@ export const Update = () => {
                             <div className="card shadow border-0">
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between">
-                                        <h4 className="h5">Edit Article</h4>
+                                        <h4 className="h5">Edit Testimonial</h4>
                                     </div>
 
                                     <hr />
 
                                     <form onSubmit={handleSubmit(onSubmit)}>
+
+
                                         <div className="mb-3">
-                                            <label htmlFor="title" className="form-label">
-                                                Title
+                                            <label htmlFor="testimonial" className="form-label">
+                                                Testimonial
+                                            </label>
+                                            <textarea
+                                                placeholder="Testimonial"
+                                                {...register("testimonial", {
+                                                    required: "The Testimonial field is required",
+                                                })}
+                                                className={`form-control ${errors.testimonial ? "is-invalid" : ""
+                                                    }`}
+                                                rows={5}
+                                                id="testimonial"
+                                            ></textarea>
+                                            {errors.testimonial && (
+                                                <p className="invalid-feedback">
+                                                    {errors.testimonial.message}
+                                                </p>
+                                            )}
+                                        </div>
+
+                                        <div className="mb-3">
+                                            <label htmlFor="citation" className="form-label">
+                                                Citation
                                             </label>
                                             <input
-                                                placeholder="Title"
-                                                {...register("title", {
-                                                    required: "The title field is required",
+                                                placeholder="Citation"
+                                                {...register("citation", {
+                                                    required: "The citation field is required",
                                                 })}
                                                 type="text"
                                                 id="title"
-                                                className={`form-control ${errors.title ? "is-invalid" : ""
+                                                className={`form-control ${errors.citation ? "is-invalid" : ""
                                                     }`}
                                             />
-                                            {errors.title && (
+                                            {errors.citation && (
                                                 <p className="invalid-feedback">
-                                                    {errors.title.message}
+                                                    {errors.citation.message}
                                                 </p>
                                             )}
                                         </div>
 
                                         <div className="mb-3">
-                                            <label htmlFor="slug" className="form-label">
-                                                Slug
+                                            <label htmlFor="designation" className="form-label">
+                                                Designation
                                             </label>
                                             <input
-                                                placeholder="Slug"
-                                                {...register("slug", {
-                                                    required: "The slug field is required",
+                                                placeholder="Designation"
+                                                {...register("designation", {
+                                                    required: "The designation field is required",
                                                 })}
                                                 type="text"
-                                                id="slug"
-                                                className={`form-control ${errors.slug ? "is-invalid" : ""
+                                                id="title"
+                                                className={`form-control ${errors.designation ? "is-invalid" : ""
                                                     }`}
                                             />
-                                            {errors.slug && (
+                                            {errors.designation && (
                                                 <p className="invalid-feedback">
-                                                    {errors.slug.message}
+                                                    {errors.designation.message}
                                                 </p>
                                             )}
                                         </div>
 
-                                        <div className="mb-3">
-                                            <label htmlFor="author" className="form-label">
-                                                Author
-                                            </label>
-                                            <input
-                                                placeholder="Author"
-                                                {...register("author")}
-                                                type="text"
-                                                id="author"
-                                                className={`form-control ${errors.author ? "is-invalid" : ""
-                                                    }`}
-                                            />
-                                            {errors.author && (
-                                                <p className="invalid-feedback">
-                                                    {errors.author.message}
-                                                </p>
-                                            )}
-                                        </div>
-
-                                        <div className="mb-3">
-                                            <label htmlFor="content" className="form-label">
-                                                Content
-                                            </label>
-                                            <JoditEditor
-                                                ref={editor}
-                                                value={content}
-                                                config={config}
-                                                onChange={(newContent) => setContent(newContent)}
-                                            />
-                                        </div>
 
                                         <div className="mb-3">
                                             <label htmlFor="image" className="form-label">
@@ -232,9 +222,8 @@ export const Update = () => {
                                                     alt="New Preview"
                                                     className="img-thumbnail"
                                                 />
-                                            ) : article.image && <img width={150} height={180} src={fileUrl + 'uploads/articles/small/' + article.image} alt="" />}
+                                            ) : testimonial.image && <img width={150} height={180} src={fileUrl + 'uploads/testimonials/' + testimonial.image} alt="" />}
                                         </div>
-
 
                                         <div className="mb-3">
                                             <label htmlFor="status" className="form-label">

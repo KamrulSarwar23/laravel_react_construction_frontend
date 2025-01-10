@@ -26,6 +26,15 @@ import ArticleShow from "./components/admin/articles/Show";
 import ArticleCreate from "./components/admin/articles/Create";
 import ArticleUpdate from "./components/admin/articles/Update";
 
+import TestimonialShow from "./components/admin/testimonials/Show";
+import TestimonialCreate from "./components/admin/testimonials/Create";
+import TestimonialUpdate from "./components/admin/testimonials/Update";
+
+
+import TeamMemberShow from "./components/admin/teams/Show";
+import TeamMemberUpdate from "./components/admin/teams/Update";
+import TeamMemberCreate from "./components/admin/teams/Create";
+
 function App() {
   return (
     <>
@@ -130,6 +139,66 @@ function App() {
               </RequireAuth>
             }
           />
+
+
+          <Route
+            path="/admin/testimonials"
+            element={
+              <RequireAuth>
+                <TestimonialShow />
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path="/admin/testimonials/create"
+            element={
+              <RequireAuth>
+                <TestimonialCreate />
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path="/admin/testimonials/edit/:id"
+            element={
+              <RequireAuth>
+                <TestimonialUpdate />
+              </RequireAuth>
+            }
+          />
+
+
+          <Route
+            path="/admin/teams"
+            element={
+              <RequireAuth>
+                <TeamMemberShow />
+              </RequireAuth>
+            }
+          />
+
+
+          <Route
+            path="/admin/teams/create"
+            element={
+              <RequireAuth>
+                <TeamMemberCreate />
+              </RequireAuth>
+            }
+          />
+
+
+          <Route
+           path="/admin/teams/edit/:id"
+            element={
+              <RequireAuth>
+                <TeamMemberUpdate />
+              </RequireAuth>
+            }
+          />
+
+
 
 
         </Routes>

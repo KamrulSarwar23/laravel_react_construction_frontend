@@ -153,7 +153,7 @@ export const Show = () => {
                         ))
                       ) : (
                         <tr>
-                          <td colSpan="5">No Projects available.</td>
+                          <td colSpan="5">No Projects Available.</td>
                         </tr>
                       )}
                     </tbody>

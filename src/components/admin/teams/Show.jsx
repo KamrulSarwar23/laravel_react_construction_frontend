@@ -5,11 +5,12 @@ import SideBar from "../../common/SideBar";
 import { apiUrl, token } from "../../common/http";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+
 export const Show = () => {
-  const [services, setServices] = useState([]);
+    
+  const [teamMembers, setTeamMembers] = useState([]);
 
-
-  const fetchservices = async () => {
+  const fetchTeamMembers = async () => {
     try {
       const authToken = token();
 
@@ -18,7 +19,7 @@ export const Show = () => {
         return;
       }
 
-      const res = await fetch(apiUrl + "services", {
+      const res = await fetch(apiUrl + "teams", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -32,15 +33,14 @@ export const Show = () => {
       }
 
       const result = await res.json();
-      setServices(result.data);
+      setTeamMembers(result.data)
     } catch (error) {
       console.error("Error fetching services:", error);
     }
   };
 
 
-
-  const deleteService = async (id) => {
+  const deleteTeamMember = async (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -58,7 +58,7 @@ export const Show = () => {
         }
   
         try {
-          const res = await fetch(`${apiUrl}services/${id}`, {
+          const res = await fetch(`${apiUrl}teams/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -70,19 +70,21 @@ export const Show = () => {
           const result = await res.json();
   
           if (result.status === true) {
-            setServices(services.filter((service) => service.id !== id));
+            setTeamMembers(teamMembers.filter((teamMember) => teamMember.id !== id));
             Swal.fire("Deleted!", result.message, "success");
           } else {
             Swal.fire("Error", result.message, "error");
           }
         } catch (error) {
-          Swal.fire("Error", "Failed to delete the service. Please try again.", "error");
+          Swal.fire("Error", "Failed to delete the article. Please try again.", "error");
         }
       }
     });
   };
+  
+
   useEffect(() => {
-    fetchservices();
+    fetchTeamMembers();
   }, []);
 
   return (
@@ -99,10 +101,10 @@ export const Show = () => {
               <div className="card shadow border-0">
                 <div className="card-body">
                   <div className="d-flex justify-content-between">
-                    <h4 className="h5">Services</h4>
+                    <h4 className="h5">Team Members</h4>
                     <Link
                       className="btn btn-primary"
-                      to={"/admin/services/create"}
+                      to={"/admin/teams/create"}
                     >
                       Create
                     </Link>
@@ -115,35 +117,34 @@ export const Show = () => {
                       <tr>
                         <th>Id</th>
                         <th>Name</th>
-                        <th>Slug</th>
+                        <th>Job Title</th>
                         <th>Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>
 
                     <tbody>
-                      {services.length > 0 ? (
-                        services.map((service) => (
-                          <tr key={service.id}>
-                            <td>{service.id}</td>
-                            <td>{service.title}</td>
-                            <td>{service.slug}</td>
+                      {teamMembers.length > 0 ? (
+                        teamMembers.map((teamMember) => (
+                          <tr key={teamMember.id}>
+                            <td>{teamMember.id}</td>
+                            <td>{teamMember.name}</td>
+                            <td>{teamMember.job_title}</td>
 
                             <td>
-                              {service.status == 1 ? "Active" : "Inactive"}
+                              {teamMember.status == 1 ? "Active" : "Inactive"}
                             </td>
 
                             <td>
-                              <Link to={`/admin/services/edit/${service.id}`}
+                              <Link to={`/admin/teams/edit/${teamMember.id}`}
                                 className="btn btn-sm btn-info me-2"
                               >
                                 Edit
                               </Link>
                               <Link
-                                onClick={() => deleteService(service.id)}
+                                onClick={() => deleteTeamMember(teamMember.id)}
                                 href="#"
-                                className="btn btn-sm btn-danger"
-                              >
+                                className="btn btn-sm btn-danger">
                                 Delete
                               </Link>
 
@@ -152,10 +153,11 @@ export const Show = () => {
                         ))
                       ) : (
                         <tr>
-                          <td colSpan="5">No Services Available.</td>
+                          <td colSpan="5">No Team Members Available.</td>
                         </tr>
                       )}
                     </tbody>
+
                   </table>
                 </div>
               </div>
