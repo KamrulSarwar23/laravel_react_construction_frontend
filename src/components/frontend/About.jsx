@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import Aboutus from "../common/Aboutus";
-import member1 from "../../assets/images/teammember1.jpg";
 import Hero from "../common/Hero";
 import { apiUrl, fileUrl } from "../common/http";
 

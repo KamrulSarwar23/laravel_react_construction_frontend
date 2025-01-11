@@ -34,7 +34,7 @@ const ServiceDetail = () => {
 
     const AllServices = async () => {
         try {
-            const res = await fetch(`${apiUrl}all-services`);
+            const res = await fetch(`${apiUrl}latest-services`);
             if (!res.ok) {
                 throw new Error("Failed to fetch all services");
             }

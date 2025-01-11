@@ -58,7 +58,7 @@ const About = () => {
                   <span className="visually-hidden">Loading...</span>
                 </div>
               </div>
-            ) : (
+            ) : services.length > 0 ? (
               // Show services when loaded
               services.map((service) => (
                 <div key={service.id} className="col-md-4 col-lg-3">
@@ -85,6 +85,11 @@ const About = () => {
                   </div>
                 </div>
               ))
+            )  : (
+              // Message when no articles are found
+              <div className="text-center py-5">
+                <h4>No services available at the moment.</h4>
+              </div>
             )}
           </div>
         </div>

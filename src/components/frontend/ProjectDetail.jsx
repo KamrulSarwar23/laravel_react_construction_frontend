@@ -34,7 +34,7 @@ const ProjectDetail = () => {
 
     const AllProjects = async () => {
         try {
-            const res = await fetch(`${apiUrl}all-projects`);
+            const res = await fetch(`${apiUrl}latest-projects`);
             if (!res.ok) {
                 throw new Error("Failed to fetch all services");
             }

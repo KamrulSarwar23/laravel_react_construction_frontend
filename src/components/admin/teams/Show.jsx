@@ -7,10 +7,11 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export const Show = () => {
-    
-  const [teamMembers, setTeamMembers] = useState([]);
 
-  const fetchTeamMembers = async () => {
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [paginator, setPaginator] = useState(null);
+
+  const fetchTeamMembers = async (url = `${apiUrl}teams`) => {
     try {
       const authToken = token();
 
@@ -19,7 +20,7 @@ export const Show = () => {
         return;
       }
 
-      const res = await fetch(apiUrl + "teams", {
+      const res = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +34,14 @@ export const Show = () => {
       }
 
       const result = await res.json();
-      setTeamMembers(result.data)
+      setTeamMembers(result.data.data)
+      setPaginator({
+        links: result.data.links,
+        total: result.data.total,
+        from: result.data.from,
+        to: result.data.to,
+        per_page: result.data.per_page,
+      });
     } catch (error) {
       console.error("Error fetching services:", error);
     }
@@ -56,7 +64,7 @@ export const Show = () => {
           Swal.fire("Error", "Authorization token missing.", "error");
           return;
         }
-  
+
         try {
           const res = await fetch(`${apiUrl}teams/${id}`, {
             method: "DELETE",
@@ -66,9 +74,9 @@ export const Show = () => {
               Authorization: `Bearer ${authToken}`,
             },
           });
-  
+
           const result = await res.json();
-  
+
           if (result.status === true) {
             setTeamMembers(teamMembers.filter((teamMember) => teamMember.id !== id));
             Swal.fire("Deleted!", result.message, "success");
@@ -81,11 +89,15 @@ export const Show = () => {
       }
     });
   };
-  
+
 
   useEffect(() => {
     fetchTeamMembers();
   }, []);
+
+  const handlePageChange = (url) => {
+    if (url) fetchTeamMembers(url);
+  };
 
   return (
     <div>
@@ -159,6 +171,41 @@ export const Show = () => {
                     </tbody>
 
                   </table>
+
+                  {/* Pagination */}
+                  {paginator && paginator.total > paginator.per_page && (
+                    <div className="d-flex flex-column justify-content-center align-items-center mt-4 mb-4">
+                      <div className="d-flex flex-wrap gap-2">
+                        {paginator.links.map((link, index) => (
+                          <button
+                            key={index}
+                            onClick={() => handlePageChange(link.url)}
+                            disabled={!link.url}
+                            className={[
+                              "btn btn-sm px-4 py-2 rounded-pill transition-all",
+                              !link.url
+                                ? "btn-secondary disabled text-dark"
+                                : "btn-outline-primary",
+                              link.active
+                                ? "btn-primary text-white fw-bold"
+                                : "btn-outline-primary text-dark border-primary",
+                            ].join(" ")}
+                          >
+                            <span
+                              dangerouslySetInnerHTML={{ __html: link.label }}
+                              className="text-center"
+                            ></span>
+                          </button>
+                        ))}
+                      </div>
+                      <span className="mt-3 text-muted fw-semibold">
+                        Showing <span className="text-primary fw-bold">{paginator.from}</span> to{" "}
+                        <span className="text-primary fw-bold">{paginator.to}</span> of{" "}
+                        <span className="text-primary fw-bold">{paginator.total}</span> items
+                      </span>
+                    </div>
+                  )}
+
                 </div>
               </div>
             </div>

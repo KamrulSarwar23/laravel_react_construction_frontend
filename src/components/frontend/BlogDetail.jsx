@@ -34,7 +34,7 @@ const BlogDetail = () => {
 
     const AllArticles = async () => {
         try {
-            const res = await fetch(`${apiUrl}all-articles`);
+            const res = await fetch(`${apiUrl}latest-articles`);
             if (!res.ok) {
                 throw new Error("Failed to fetch all articles");
             }
@@ -77,13 +77,18 @@ const BlogDetail = () => {
                         <div className="col-md-3">
                             <div className="card sidebar shadow border-0 p-3">
                                 <div className="card-body px-4 py-4">
-                                    <h3>Our Articles</h3>
+                                    <h3>Latest Blog</h3>
                                     {allArticles && allArticles.map((itemArticle) => (
-                                        <ul key={itemArticle.id}>
-                                            <li> <Link to={`/blog/${itemArticle.id}`}
+                                        <ul  key={itemArticle.id}>
+                                             
+                                            <li className="d-flex py-2"> 
+                                            <img className="me-2" width={50} height={50} src={fileUrl+'uploads/articles/small/' + itemArticle.image} alt="" />
+                                                <Link to={`/blog/${itemArticle.id}`}
                                                 className={location.pathname === `/blog/${itemArticle.id}` ? "active" : ""}>
                                                 {itemArticle.title}
-                                            </Link></li>
+                                            </Link>
+                                           
+                                            </li>
                                         </ul>
                                     ))}
                                 </div>

@@ -9,8 +9,6 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import AvatarImg from "../../assets/images/author-2.jpg";
-
 import Icon1 from "../../assets/images/icon-1.svg";
 import Icon2 from "../../assets/images/icon-2.svg";
 import Icon3 from "../../assets/images/icon-3.svg";

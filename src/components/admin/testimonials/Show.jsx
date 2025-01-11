@@ -9,8 +9,9 @@ import Swal from "sweetalert2";
 const Show = () => {
 
     const [testimonials, setTestimonials] = useState([]);
+    const [paginator, setPaginator] = useState(null);
 
-    const fetchTestimonials = async () => {
+    const fetchTestimonials = async (url = `${apiUrl}testimonials`) => {
         try {
             const authToken = token();
             if (!authToken) {
@@ -18,21 +19,29 @@ const Show = () => {
                 return;
             }
 
-              const res = await fetch(apiUrl + "testimonials", {
-                    method: "GET",
-                    headers: {
-                      "Content-Type": "application/json",
-                      Accept: "application/json",
-                      Authorization: `Bearer ${authToken}`,
-                    },
-                  });
+            const res = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: `Bearer ${authToken}`,
+                },
+            });
 
-                  if (!res.ok) {
-                    throw new Error(`HTTP error! Status: ${res.status}`);
-                  }
+            if (!res.ok) {
+                throw new Error(`HTTP error! Status: ${res.status}`);
+            }
 
-                  const result = await res.json();
-                  setTestimonials(result.data);
+            const result = await res.json();
+            setTestimonials(result.data.data);
+
+            setPaginator({
+                links: result.data.links,
+                total: result.data.total,
+                from: result.data.from,
+                to: result.data.to,
+                per_page: result.data.per_page,
+            });
 
 
         } catch (error) {
@@ -40,53 +49,56 @@ const Show = () => {
         }
     }
 
-  const deleteTestimonial = async (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const authToken = token();
-        if (!authToken) {
-          Swal.fire("Error", "Authorization token missing.", "error");
-          return;
-        }
-  
-        try {
-          const res = await fetch(`${apiUrl}testimonials/${id}`, {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: `Bearer ${authToken}`,
-            },
-          });
-  
-          const result = await res.json();
-  
-          if (result.status === true) {
-            setTestimonials(testimonials.filter((testimonial) => testimonial.id !== id));
-            Swal.fire("Deleted!", result.message, "success");
-          } else {
-            Swal.fire("Error", result.message, "error");
-          }
-        } catch (error) {
-          Swal.fire("Error", "Failed to delete the service. Please try again.", error);
-        }
-      }
-    });
-  };
+    const deleteTestimonial = async (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const authToken = token();
+                if (!authToken) {
+                    Swal.fire("Error", "Authorization token missing.", "error");
+                    return;
+                }
+
+                try {
+                    const res = await fetch(`${apiUrl}testimonials/${id}`, {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                            Authorization: `Bearer ${authToken}`,
+                        },
+                    });
+
+                    const result = await res.json();
+
+                    if (result.status === true) {
+                        setTestimonials(testimonials.filter((testimonial) => testimonial.id !== id));
+                        Swal.fire("Deleted!", result.message, "success");
+                    } else {
+                        Swal.fire("Error", result.message, "error");
+                    }
+                } catch (error) {
+                    Swal.fire("Error", "Failed to delete the service. Please try again.", error);
+                }
+            }
+        });
+    };
 
 
     useEffect(() => {
         fetchTestimonials();
     }, []);
 
+    const handlePageChange = (url) => {
+        if (url) fetchTestimonials(url);
+    };
     return (
         <div>
             <Header />
@@ -129,7 +141,7 @@ const Show = () => {
                                                     <tr key={testimonial.id}>
                                                         <td>{testimonial.id}</td>
                                                         <td>{testimonial.citation}</td>
-                                                        <td>{testimonial.designation }</td>
+                                                        <td>{testimonial.designation}</td>
 
                                                         <td>
                                                             {testimonial.status == 1 ? "Active" : "Inactive"}
@@ -159,6 +171,41 @@ const Show = () => {
                                             )}
                                         </tbody>
                                     </table>
+
+                                    {/* Pagination */}
+                                    {paginator && paginator.total > paginator.per_page && (
+                                        <div className="d-flex flex-column justify-content-center align-items-center mt-4 mb-4">
+                                            <div className="d-flex flex-wrap gap-2">
+                                                {paginator.links.map((link, index) => (
+                                                    <button
+                                                        key={index}
+                                                        onClick={() => handlePageChange(link.url)}
+                                                        disabled={!link.url}
+                                                        className={[
+                                                            "btn btn-sm px-4 py-2 rounded-pill transition-all",
+                                                            !link.url
+                                                                ? "btn-secondary disabled text-dark"
+                                                                : "btn-outline-primary",
+                                                            link.active
+                                                                ? "btn-primary text-white fw-bold"
+                                                                : "btn-outline-primary text-dark border-primary",
+                                                        ].join(" ")}
+                                                    >
+                                                        <span
+                                                            dangerouslySetInnerHTML={{ __html: link.label }}
+                                                            className="text-center"
+                                                        ></span>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                            <span className="mt-3 text-muted fw-semibold">
+                                                Showing <span className="text-primary fw-bold">{paginator.from}</span> to{" "}
+                                                <span className="text-primary fw-bold">{paginator.to}</span> of{" "}
+                                                <span className="text-primary fw-bold">{paginator.total}</span> items
+                                            </span>
+                                        </div>
+                                    )}
+
                                 </div>
                             </div>
                         </div>

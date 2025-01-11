@@ -137,6 +137,7 @@ export const Create = () => {
                         className={`form-control ${errors.title ? "is-invalid" : ""
                           }`}
                       />
+                      
                       {errors.title && (
                         <p className="invalid-feedback">
                           {errors.title.message}

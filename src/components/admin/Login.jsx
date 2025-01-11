@@ -40,6 +40,7 @@ const Login = () => {
 
       localStorage.setItem("userinfo", JSON.stringify(userinfo));
       login(userinfo)
+      toast.success('Login Successfully');
       navigate("/admin/dashboard");
     }
 
