@@ -7,6 +7,8 @@ import Contact from "./components/frontend/Contact";
 import Blog from "./components/frontend/Blog";
 import Project from "./components/frontend/Project";
 import Service from "./components/frontend/Service";
+import ServiceDetail from "./components/frontend/ServiceDetail";
+
 import Login from "./components/admin/Login";
 import { Dashboard } from "./components/admin/Dashboard";
 import { ToastContainer } from "react-toastify";
@@ -34,6 +36,10 @@ import TestimonialUpdate from "./components/admin/testimonials/Update";
 import TeamMemberShow from "./components/admin/teams/Show";
 import TeamMemberUpdate from "./components/admin/teams/Update";
 import TeamMemberCreate from "./components/admin/teams/Create";
+import BlogDetail from "./components/frontend/BlogDetail";
+import ProjectDetail from "./components/frontend/ProjectDetail";
+
+
 
 function App() {
   return (
@@ -48,6 +54,9 @@ function App() {
           <Route path="/blogs" element={<Blog />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/admin/login" element={<Login />} />
+          <Route path="/service/:id" element={<ServiceDetail />} />
+          <Route path="/blog/:id" element={<BlogDetail />} />
+          <Route path="/project/:id" element={<ProjectDetail />} />
 
           <Route
             path="/admin/dashboard"
