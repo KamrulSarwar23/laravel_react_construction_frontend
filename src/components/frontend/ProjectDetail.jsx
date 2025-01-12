@@ -75,21 +75,7 @@ const ProjectDetail = () => {
             <section className="section-11">
                 <div className="container py-5">
                     <div className="row">
-                        <div className="col-md-3">
-                            <div className="card sidebar shadow border-0 p-3">
-                                <div className="card-body px-4 py-4">
-                                    <h3>Our Projects</h3>
-                                    {allProject && allProject.map((itemProject) => (
-                                        <ul key={itemProject.id}>
-                                            <li> <Link to={`/project/${itemProject.id}`}
-                                                className={location.pathname === `/project/${itemProject.id}` ? "active" : ""}>
-                                                {itemProject.title}
-                                            </Link></li>
-                                        </ul>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+               
 
                         <div className="col-md-9">
                             {project ? (
@@ -119,6 +105,25 @@ const ProjectDetail = () => {
                                     </div>
                                 </div>
                             )}
+                        </div>
+
+                        <div className="col-md-3">
+                            <div className="card sidebar shadow border-0 p-3">
+                                <div className="card-body px-4 py-4">
+                                    <h3>Our Projects</h3>
+                                    {allProject && allProject.map((itemProject) => (
+                                        <ul key={itemProject.id}>
+                                            <li className="d-flex py-2">
+                                                 <img className="me-2" width={50} height={50} src={fileUrl+'uploads/projects/small/' + itemProject.image} alt="" />
+                                                 <Link to={`/project/${itemProject.id}`}
+
+                                                className={location.pathname === `/project/${itemProject.id}` ? "active" : ""}>
+                                                {itemProject.title}
+                                            </Link></li>
+                                        </ul>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
 

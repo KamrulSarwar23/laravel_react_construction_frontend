@@ -74,21 +74,7 @@ const ServiceDetail = () => {
             <section className="section-11">
                 <div className="container py-5">
                     <div className="row">
-                        <div className="col-md-3">
-                            <div className="card sidebar shadow border-0 p-3">
-                                <div className="card-body px-4 py-4">
-                                    <h3>Our Services</h3>
-                                    {allService && allService.map((itemService) => (
-                                        <ul key={itemService.id}>
-                                            <li> <Link to={`/service/${itemService.id}`}
-                                                className={location.pathname === `/service/${itemService.id}` ? "active" : ""}>
-                                                {itemService.title}
-                                            </Link></li>
-                                        </ul>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+                     
 
                         <div className="col-md-9">
                             {service ? (
@@ -114,6 +100,24 @@ const ServiceDetail = () => {
                                     </div>
                                 </div>
                             )}
+                        </div>
+
+                        <div className="col-md-3">
+                            <div className="card sidebar shadow border-0 p-3">
+                                <div className="card-body px-4 py-4">
+                                    <h3>Our Services</h3>
+                                    {allService && allService.map((itemService) => (
+                                        <ul key={itemService.id}>
+                                            <li className="d-flex py-2">
+                                                <img className="me-2" width={50} height={50} src={fileUrl + 'uploads/services/small/' + itemService.image} alt="" />
+                                                <Link to={`/service/${itemService.id}`}
+                                                    className={location.pathname === `/service/${itemService.id}` ? "active" : ""}>
+                                                    {itemService.title}
+                                                </Link></li>
+                                        </ul>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
 

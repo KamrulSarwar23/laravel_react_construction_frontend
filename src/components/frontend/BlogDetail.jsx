@@ -74,26 +74,7 @@ const BlogDetail = () => {
             <section className="section-11">
                 <div className="container py-5">
                     <div className="row">
-                        <div className="col-md-3">
-                            <div className="card sidebar shadow border-0 p-3">
-                                <div className="card-body px-4 py-4">
-                                    <h3>Latest Blog</h3>
-                                    {allArticles && allArticles.map((itemArticle) => (
-                                        <ul  key={itemArticle.id}>
-                                             
-                                            <li className="d-flex py-2"> 
-                                            <img className="me-2" width={50} height={50} src={fileUrl+'uploads/articles/small/' + itemArticle.image} alt="" />
-                                                <Link to={`/blog/${itemArticle.id}`}
-                                                className={location.pathname === `/blog/${itemArticle.id}` ? "active" : ""}>
-                                                {itemArticle.title}
-                                            </Link>
-                                           
-                                            </li>
-                                        </ul>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+                      
 
                         <div className="col-md-9">
                             {article ? (
@@ -119,6 +100,27 @@ const BlogDetail = () => {
                                     </div>
                                 </div>
                             )}
+                        </div>
+
+                        <div className="col-md-3">
+                            <div className="card sidebar shadow border-0 p-3">
+                                <div className="card-body px-4 py-4">
+                                    <h3>Latest Blog</h3>
+                                    {allArticles && allArticles.map((itemArticle) => (
+                                        <ul  key={itemArticle.id}>
+                                             
+                                            <li className="d-flex py-2"> 
+                                            <img className="me-2" width={50} height={50} src={fileUrl+'uploads/articles/small/' + itemArticle.image} alt="" />
+                                                <Link to={`/blog/${itemArticle.id}`}
+                                                className={location.pathname === `/blog/${itemArticle.id}` ? "active" : ""}>
+                                                {itemArticle.title}
+                                            </Link>
+                                           
+                                            </li>
+                                        </ul>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
 

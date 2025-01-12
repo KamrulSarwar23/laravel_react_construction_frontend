@@ -10,6 +10,7 @@ export const Show = () => {
   
   const [services, setServices] = useState([]);
   const [paginator, setPaginator] = useState(null);
+  
 
   const fetchServices = async (url = `${apiUrl}services`) => {
     try {
@@ -117,9 +118,10 @@ export const Show = () => {
               <div className="card shadow border-0">
                 <div className="card-body">
                   <div className="d-flex justify-content-between">
-                    <h4 className="h5">Services</h4>
+                    <h4 className="h5 me-5">Services</h4>
+                  
                     <Link
-                      className="btn btn-primary"
+                      className="ms-5 btn btn-primary"
                       to={"/admin/services/create"}
                     >
                       Create
